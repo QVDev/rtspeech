@@ -1,0 +1,105 @@
+
+
+
+
+
+
+****** Real-time Speech encoding ******
+[show]
+Username: [username            ]
+**** File Decoding (Speex) ****
+ Sample file: [File]
+ Audio Element Integration
+**** Voice chat options ****
+ Enable Visualization: *
+ Codec: [One of: Speex/PCMA (G711)/PCMU (G711)]
+**** Codec Options ****
+ Quality: [Unknown INPUT type]
+ Voice Audio Detection: ⁰
+new session
+
+***** Disclaimer *****
+During the audio stream we are making performance analysis. We are collecting
+transport and codec data such as encode/decode times, packet size, rtt, etc.
+The location we ask you to provide, is important to assert the codec
+performance with the latency of your connection.
+
+***** How it works? *****
+This demo is somewhat similar to chat roulette, but without video. Hitting the
+"new session" button, you will start the voice chat. You are prompted a
+microphone capture dialog, for you to send the audio to your assigned peer.
+Remember you will be talking with an unknown person. Since this is a simple
+demonstration of voice codecs, we wanted to make it simple for developers to
+test this.
+The main focus of this app goes to the implementation of the voice codecs Speex
+and G711.
+While G711 (both PCMU and PCMA) was implemented from scratch, the Speex was
+ported using Emscripten tool due to its high complexity. We have only
+"transpiled" the main core of the codec (libspeex and libspeexdsp, version 1.2-
+RC1).
+A wrapper was build to interact with emscripten generated code, being also
+responsible for the OGG format parsing and buffers managment. All of this
+through a simple API for audio encoding. For now only basic settings can be
+changed in the Speex codec, such as quality and complexity. In future, we will
+give support to its best features which includes echo cancellation and voice
+activity detection.
+We tested these implementations on desktop and mobile platforms. Apparently,
+Firefox seems to perform better on the audio processing/playback. Chrome needs
+additional processing on playback due to its already known resampling_problem.
+
+***** External Libraries and Polyfills *****
+    * PCMData.js- For WAV packing to be used in data URIs
+    * swfobject- Flash object integration
+    * XAudioJS- Polyfill for the Audio APIs, but only used when Web Audio API
+
+***** Browser Compatibility *****
+    * Low Level Audio APIs
+    * WebSockets Binary
+    * Web Workers
+    * File Reader
+    * Performance
+    * User Timing API [1]
+Tested on Chrome 17+, Firefox 11+, Firefox Mobile Aurora  (only playback).
+On mobile, it is only audible with the G711 codec. Speex is too heavy on the
+CPU, causing too much breaks on the audio.
+The tested device was a Samsung Galaxy S (Android 2.3.7). Other devices may
+perform better.
+[1] - This API is not yet available in any browser. A polyfill is here used to
+support our measurements.
+
+***** Troubleshooting *****
+Cases where the sound can be sloppy:
+When the Media Capture dialog is hidden, Flash will send too much samples to
+the capture callback, instead the regular value that are expected. In this case
+you might want to leave the dialog open. This is a bug we've have found most
+recently. It only happens when Flash is not "visible".
+The media relay is located in Aveiro, Portugal. Varying from your location,
+additional delay may be causing the breaks in the sound. If you are interested,
+you might wanna try the demo in your computer along with some friends.
+
+***** Future work *****
+This demo is an example of a voice chat-roulette with codecs, audio playback
+and stream purely in JavaScript. The only part that isn't JavaScript is the
+microphone capture.
+As WebRTC is starting to appear, microphone samples access will eventually be
+granted to developers to enable speech-related applications. Also, with the
+ongoing work on PeerConnection API, in a near future it should be possible to
+make this demo into a P2P solution (UDP) instead of a WebSocket-based (TCP).
+Another issue stands in the standardization of the low-level audio, where
+developers are divided between two different APIs: Mozilla's Audio Data and
+Google's Web Audio. Each of these have its different objectives, although
+consensus is needed for its arrival in the final HTML5 standard.
+There are many decoders already (both audio and video) ported to the browser:
+    * ALAC
+    * MP3
+    * AAC
+    * H264
+    * VP8
+We hope to make our contribution with G711 and Speex (both encoders and
+decoders), which has special importance in telephony and speech-related
+scenarios. In the near future we intend to bring more of these audio
+(telephony) codecs. We will update this demo, as we port more codecs.
+
+
+
+

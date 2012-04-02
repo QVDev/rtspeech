@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Real-time Speech encoding demo</title>
+		<meta name="description" content="rtspeech">
+        <meta name="author" content="Joao Martins, Diogo Gomes, Rui L. Aguiar">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		
+		<link href="/css/mobile.css" media="screen" rel="stylesheet" type="text/css" />
+		<link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  		<link href="/css/print.css" media="print" rel="stylesheet" type="text/css" />
+  		<!--[if IE]>
+      		<link href="/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  		<![endif]-->
+
+  		<script src="js/lib/modernizr.min.js"></script>
+  		<script src="js/lib/modernizr-tests.js"></script> 
+	</head>
+
+	<body>
+		<header>
+			<h1 class="title">Real-time Speech encoding</h1>
+			<span class="toggle-media-capture hidden">[show]</span>
+		</header>
+				
+		<section id="media">
+			<canvas id="loopback" width="720" height="240" style="display: none"></canvas>
+			<canvas id="remote" width="720" height="240"></canvas>
+
+			<p class="username hidden">
+				<span>Username:</span>
+				<input name="username" type="text" />
+			</p>
+			
+			<div id="file-decoding" class="details">
+				<h3 class="summary">File Decoding (Speex)</h2>
+
+				<p>
+					<label for="sample">
+						<span>Sample file:</span>
+						<input name="sample" type="file" accept="audio/ogg" />
+					</label>
+				</p>
+
+				<p>
+					<label for="audio-element">
+						<span>Audio Element Integration</span>
+						<audio id="audio-element" src="/samples/female.ogg" controls></audio>
+					</label>
+				</p>
+
+			</div>
+
+			<div id="session-options" class="details">
+				<h3 class="summary">Voice chat options</h2>
+				<p>
+					<label for="visualization">
+						<span>Enable Visualization:</span>
+						<input id="toggle-vis" name="visualization" type="checkbox" class="checkbox" checked />
+					</label>
+				</p>
+				<p>
+					<label for="codec">
+						<span>Codec:</span>
+						<select id="select-codec" name="codec" class="selector">
+							<option name="speex">Speex</option>
+							<option name="pcma">PCMA (G711)</option>
+							<option name="pcmu">PCMU (G711)</option>
+						</select>
+					</label>
+				</p>
+			</div>
+
+			<div id="codec-options" class="hidden details">
+				<h3 class="summary">Codec Options</h2>
+				<p>
+					<label for="quality">
+						<span>Quality:</span>
+						<input type="number" value="4" min="0" max="10" step="1"/>
+					</label>
+				</p>
+				<p>
+					<label for="vad">
+						<span>Voice Audio Detection:</span>
+						<input name="vad" type="checkbox" class="checkbox" />
+					</label>
+				</p>
+			</div>
+
+			<div id="session-container">
+				<button id="new-session">new session</button>
+			</div>
+		</section>
+
+		<section id="disclaimer">
+			<h2>Disclaimer</h1>
+			<p class="text">During the audio stream we are making performance analysis. We are collecting transport and codec data such as encode/decode times, packet size, rtt, etc. The location we ask you to provide, is important to assert the codec performance with the latency of your connection.</p>
+		</section>
+
+		<section id="how-to">
+			<h2>How it works?</h1>
+			
+			<p class="text">
+			This demo is somewhat similar to chat roulette, but without video. Hitting the "new session" button, you will start the voice chat. You are prompted a microphone capture dialog, for you to send the audio to your assigned peer. Remember you will be talking with an unknown person. Since this is a simple demonstration of voice codecs, we wanted to make it simple for developers to test this.
+			</p>
+
+			<p class="text">
+			The main focus of this app goes to the implementation of the voice codecs Speex and G711. 
+			</p>
+			
+			<p class="text">
+			While G711 (both PCMU and PCMA) was implemented from scratch, the Speex was ported using <a href="www.emscripten.org/">Emscripten</a> tool due to its high complexity. We have only "transpiled" the main core of the codec (<span class="bold">libspeex</span> and libspeexdsp, version 1.2-RC1).
+			</p>
+
+			<p class="text">
+			A wrapper was build to interact with emscripten generated code, being also responsible for the OGG format parsing and buffers managment. All of this through a simple API for audio encoding. For now only basic settings can be changed in the Speex codec, such as quality and complexity. In future, we will give support to its best features which includes echo cancellation and voice activity detection.
+			</p>
+
+			<p class="text">
+			We tested these implementations on desktop and mobile platforms. Apparently, Firefox seems to perform better on the audio processing/playback. Chrome needs additional processing on playback due to its already known <a href="http://code.google.com/p/chromium/issues/detail?id=73062">resampling problem</a>.
+			</p>
+		</section>
+
+		<section id="tools">
+			<h2>External Libraries and Polyfills</h1>
+			
+			<p class="text">
+				<ul class="codecs">
+					<li><a href="https://github.com/jussi-kalliokoski/pcmdata.js">PCMData.js </a>-<span> For WAV packing to be used in data URIs</span></li>
+					<li><a href="http://code.google.com/p/swfobject">swfobject </a>-<span> Flash object integration</span></li>
+					<li><a href="https://github.com/grantgalitz/XAudioJS">XAudioJS </a>-<span> Polyfill for the Audio APIs, but only used when Web Audio API</span></li>
+				</ul>			
+			</p>
+		</section>
+
+		<section id="support">
+			<h2>Browser Compatibility</h1>
+			<ul class="features">
+				<li class="audiodata webaudio">Low Level Audio APIs</li>
+				<li class="websocketsbinary">WebSockets Binary</li>
+				<li class="webworkers">Web Workers</li>
+				<li class="filereader">File Reader</li>
+				
+				<li class="performance">Performance</li>
+				<li class="usertiming">User Timing API [1]</li>
+			</ul>
+
+			<p class="text">Tested on <span class="bold">Chrome 17+</span>, <span class="bold">Firefox 11+</span>, <span class="bold">Firefox Mobile Aurora </span> (only playback).</p>
+
+			<p class="text">On mobile, it is only audible with the <span class="underline">G711</span> codec. Speex is too heavy on the CPU, causing too much breaks on the audio.</p>			
+			
+			<p class="text">The tested device was a Samsung Galaxy S (Android 2.3.7). Other devices may perform better.</p>
+			
+			<p class="notes text">
+				[1] - <a href="http://dvcs.w3.org/hg/webperf/raw-file/tip/specs/UserTiming/Overview.html">This</a> API is not yet available in any browser. A polyfill is here used to support our measurements.
+			</p>
+		</section>
+
+		<section id="troubleshooting">
+			<h2>Troubleshooting</h1>
+			<p class="text bold">Cases where the sound can be sloppy:</p>
+			<p class="text italic">
+			When the Media Capture dialog is hidden, Flash will send too much samples to the capture callback, instead the regular value that are expected. In this case you might want to leave the dialog open. This is a bug we've have found most recently. It only happens when Flash is not "visible".
+			</p>
+
+			<p class="text italic">
+			The media relay is located in Aveiro, Portugal. Varying from your location, additional delay may be causing the breaks in the sound. If you are interested, you might wanna try the demo in your computer along with some friends.
+			</p>
+		</section>
+
+		<section id="future-work">
+			<h2>Future work</h1>
+			
+			<p class="text">
+			This <a href="https://github.com/jpemartins/rtspeech">demo</a> is an example of a voice chat-roulette with codecs, audio playback and stream purely in JavaScript. The only part that isn't JavaScript is the microphone capture.
+			</p>
+
+			<p class="text">
+			As <a href="http://robert.ocallahan.org/2012/01/mediastreams-processing-demos.html">WebRTC</a> is <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/webrtc-integration.html">starting</a> to <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/streams/StreamProcessing.html">appear</a>, microphone samples access will eventually be granted to developers to enable speech-related applications. Also, with the ongoing work on <span class="verb">PeerConnection</span> API, in a near future it should be possible to make this demo into a P2P solution (UDP) instead of a WebSocket-based (TCP).
+			</p>
+
+			<p class="text">
+			Another issue stands in the standardization of the low-level audio, where developers are divided between two different APIs: Mozilla's Audio Data and Google's Web Audio. Each of these have its different objectives, although consensus is needed for its arrival in the final HTML5 standard.
+			</p>
+
+			<p class="text">
+			There are many decoders already (both audio and video) ported to the browser:
+			<ul class="codecs">
+				<li><a href="https://github.com/ofmlabs/alac.js">ALAC</a></li>
+				<li><a href="https://github.com/ofmlabs/jsmad">MP3</a></li>
+				<li><a href="https://github.com/ofmlabs/aac.js">AAC</a></li>
+				<li><a href="https://github.com/mbebenita/Broadway">H264</a></li>
+				<li><a href="https://github.com/bemasc/Broadway/tree/master/vp8">VP8</a></li>
+			</ul>			
+			</p>
+
+			<p class="text">
+			We hope to make our contribution with <a href="https://github.com/jpemartins/g711.js">G711</a> and <a href="https://github.com/jpemartins/speex.js">Speex</a> (both encoders and decoders), which has special importance in telephony and speech-related scenarios. In the near future we intend to bring more of these audio (telephony) codecs. We will update this demo, as we port more codecs. 
+			</p>
+
+		</section>
+
+		<!-- Media Capture settings  -->
+		<script>
+		__MediaCaptureUI = { 
+			stylesheet: "/css/mediacapture.css"
+		  , swf: "/bin/MediaCapture.swf"
+		  , timeout: 500 
+		}
+		</script>		
+	
+		<!-- Libraries
+		
+		<script src="/js/lib/swfobject.js"></script>
+		<script src="/js/lib/pcmdata.js"></script>
+		<script src="/js/lib/mediacapture.js"></script>
+		<script src="/js/lib/bitstring.min.js"></script>
+		
+		-->
+
+		<script src="/dist/deps.min.js"></script>
+		
+		<!-- Codecs -->
+		<script src="/dist/speex.min.js"></script>
+		<script src="/dist/g711.min.js"></script>
+
+		<!-- App Main -->
+		<script data-main="/app.js" src="/js/lib/require.js"></script>
+	</body>
+</html>

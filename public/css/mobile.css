@@ -1,0 +1,37 @@
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+  /* line 3, ../../sass/mobile.scss */
+  header {
+    padding: 25px 0px 0px 0px;
+  }
+
+  /* line 7, ../../sass/mobile.scss */
+  header > .title {
+    font-size: 70px !important;
+  }
+
+  /* line 11, ../../sass/mobile.scss */
+  section {
+    padding-left: 3px !important;
+  }
+
+  /* line 15, ../../sass/mobile.scss */
+  .features li {
+    display: block !important;
+    margin-top: 4px;
+  }
+
+  /* line 20, ../../sass/mobile.scss */
+  #new-session {
+    border-color: #4e4e4e !important;
+    letter-spacing: -3.2px !important;
+    width: 90%;
+    height: 80px;
+    text-align: center;
+    font-size: 60px !important;
+  }
+
+  /* line 29, ../../sass/mobile.scss */
+  #session-container {
+    text-align: center;
+  }
+}

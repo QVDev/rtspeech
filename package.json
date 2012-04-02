@@ -1,0 +1,18 @@
+{
+    "name": "rtspeech"
+  , "version": "0.0.1"
+  , "description": "Real-time voice chat with using client-side codecs"
+  , "keywords": []
+  , "author": "João Martins <joaolemos@ua.pt>"
+  , "private": true
+  , "dependencies": {
+      "optimist": "latest"	   
+    , "express": "latest"
+    , "ws": "latest"
+    , "log": "latest"
+	, "bunyan": "latest"
+	, "requirejs": "latest"
+  }
+  , "main": "index"
+  , "engines": { "node": "0.6.x" }
+}

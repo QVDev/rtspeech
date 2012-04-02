@@ -1,0 +1,33 @@
+@media only screen and (max-width: 480px), only screen and (max-device-width: 480px) {
+	
+	header {
+		padding: 25px 0px 0px 0px;
+	}
+
+	header > .title {
+		font-size: 70px !important;		
+	}
+
+	section {
+		padding-left: 3px !important;	
+	}
+
+	.features li {
+		display: block !important;
+		margin-top: 4px;
+	}
+
+	#new-session {
+		border-color: #4e4e4e !important;
+		letter-spacing: -3.2px !important;
+		width: 90%;
+		height: 80px;
+		text-align: center;
+		font-size: 60px !important;
+	}
+
+	#session-container {
+		text-align: center;		
+	}
+
+}

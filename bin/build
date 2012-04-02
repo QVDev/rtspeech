@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+var requirejs = require('requirejs')
+  , config = {
+        baseUrl: 'src/',
+        name: 'app',
+        optimize: 'none',
+        wrap: true,
+        out: 'public/dist/app.js'
+    }
+  , contents;
+
+requirejs.optimize(config, function (buildResponse) {
+  contents = require("fs").readFileSync(config.out, 'utf8');
+});
+
+
+/**
+ * Generates the dependencies File
+ *
+ */
+var fs = require('fs')  
+  , util = require('util')
+  , outFile = fs.createWriteStream('public/dist/deps.js', {
+      flags: 'w'
+  })
+  , deps = [
+        'lib/bitstring.min.js'
+      , 'lib/mediacapture.js'
+      , 'lib/pcmdata.js'
+      , 'lib/swfobject.js'
+      , 'polyfills/xaudio.js'
+  ];
+
+outFile.on('open', function (fd) {
+    var outSize = 0;
+    for (var i=-1, l=deps.length; ++i<l;) {        
+        var name = "public/js/"+deps[i]
+          , content = fs.readFileSync(name);
+        
+        console.log("appending: "+name+", size="+(outSize += content.length, content.length));
+        outFile.write(content);
+    }
+
+  console.log("deps file size:" + outSize);
+	outFile.end();
+
+  console.log("app file size:" + contents.length);  
+});
+

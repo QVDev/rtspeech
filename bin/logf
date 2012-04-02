@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var argv = require('optimist')
+	.usage("Usage: logf --m [metric]")
+	.demand(['m'])
+	.argv;
+
+var yrange = argv.y.split(":")
+
+process.stdout.write("set title \"Metric: "+argv.m+"\"\n");
+process.stdout.write("set ylabel \""+argv.m+"\"\n");
+process.stdout.write("set yrange["+yrange[0]+":"+yrange[1]+"]\n");
+
+var metrics, x=-1, begin = true;
+
+function plot(data, arg_m) {
+	var tks = arg_m.split(".")
+	  , type = tks[0]
+	  , metric = tks[1];
+
+
+	var i, set;
+
+	set = data[type][metric];
+	
+	if (!set || set.length == 0) {
+		return;	
+	}
+
+	if (typeof(set) === "number") {
+		process.stdout.write(++x+" "+set+"\n");
+	}
+
+	for (i=-1; ++i<set.length;) {
+		process.stdout.write(++x+" "+set[i]+"\n");		
+	}	
+}
+
+process.stdin.setEncoding('ascii');
+process.stdin.resume();
+process.stdin.on('data', function (chunk) {
+	begin && process.stdout.write("plot \"-\"\n") && (begin = false)
+	var lines = chunk.split("\n")
+	  , json;
+	
+	try {
+		for (var i=-1; ++i<lines.length;) {
+			json = JSON.parse(lines[i], true);
+			!!json.measures && plot(json.measures, argv.m);
+		}
+	} catch (err) {
+		process.stdout.write("e\n");
+		begin = true;
+	}
+});

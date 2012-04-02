@@ -130,14 +130,12 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 
 	// New Session Button
 	newSessionBtn.addEventListener("click", function (evt) {
-		requestSessionKey(function (sessionId){
-			stream = new Stream(sessionId, {			  				
-				codec: codec
-			});
+		stream = new Stream("", {			  				
+			codec: codec
+		});
 
-			stream.onparamset = changeCodec;
-			bindMC();
-		});		
+		stream.onparamset = changeCodec;
+		bindMC();
 	}, false);
 
 	featureSupport();

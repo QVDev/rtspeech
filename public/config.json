@@ -1,4 +1,4 @@
 {
-	"relay": "193.136.93.246:80/stream"
-  , "monrd": "193.136.93.246:443/"
+	"relay": "bamboo.av.it.pt:80/stream"
+  , "monrd": "bamboo.av.it.pt:443/"
 }

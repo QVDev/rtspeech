@@ -136,6 +136,8 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 
 		stream.onparamset = changeCodec;
 		bindMC();
+		
+		newSessionBtn.parentNode.removeChild(newSessionBtn);
 	}, false);
 
 	featureSupport();

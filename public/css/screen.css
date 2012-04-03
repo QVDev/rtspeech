@@ -427,6 +427,11 @@ canvas {
 }
 
 /* line 296, ../../sass/screen.scss */
+.mc-minimize-button {
+  display: none !important;
+}
+
+/* line 300, ../../sass/screen.scss */
 label {
   color: #888;
   font-size: 16px;
@@ -436,7 +441,7 @@ label {
 }
 
 /* CSS3 Uniform Checkbox (Modified) */
-/* line 305, ../../sass/screen.scss */
+/* line 309, ../../sass/screen.scss */
 .checkbox {
   background-image: url(/images/sprite.png) !important;
   background-repeat: no-repeat;
@@ -449,26 +454,26 @@ label {
   margin: 0px;
 }
 
-/* line 317, ../../sass/screen.scss */
+/* line 321, ../../sass/screen.scss */
 .checkbox {
   background-position: 0px -260px;
   height: 19px;
   width: 19px;
 }
 
-/* line 324, ../../sass/screen.scss */
+/* line 328, ../../sass/screen.scss */
 .checkbox:active,
 .checkbox.active {
   background-position: -19px -260px;
 }
 
-/* line 329, ../../sass/screen.scss */
+/* line 333, ../../sass/screen.scss */
 .checkbox.focus,
 .checkbox:hover {
   background-position: -38px -260px;
 }
 
-/* line 336, ../../sass/screen.scss */
+/* line 340, ../../sass/screen.scss */
 .checkbox.focus:active,
 .checkbox:active:hover,
 .checkbox.active:hover,
@@ -476,24 +481,24 @@ label {
   background-position: -57px -260px;
 }
 
-/* line 340, ../../sass/screen.scss */
+/* line 344, ../../sass/screen.scss */
 .checkbox:checked {
   background-position: -76px -260px;
 }
 
-/* line 345, ../../sass/screen.scss */
+/* line 349, ../../sass/screen.scss */
 .checkbox:active:checked,
 .checkbox.active:checked {
   background-position: -95px -260px;
 }
 
-/* line 350, ../../sass/screen.scss */
+/* line 354, ../../sass/screen.scss */
 .checkbox.focus.checked,
 .checkbox.checked:hover {
   background-position: -114px -260px;
 }
 
-/* line 357, ../../sass/screen.scss */
+/* line 361, ../../sass/screen.scss */
 .checkbox.focus.checked:active,
 .checkbox:hover.checked:active,
 .checkbox.active:hover.checked,
@@ -501,14 +506,14 @@ label {
   background-position: -133px -260px;
 }
 
-/* line 363, ../../sass/screen.scss */
+/* line 367, ../../sass/screen.scss */
 .checkbox.disabled,
 .checkbox.disabled:active,
 .checkbox.disabled.active {
   background-position: -152px -260px;
 }
 
-/* line 369, ../../sass/screen.scss */
+/* line 373, ../../sass/screen.scss */
 .checkbox.disabled.checked,
 .checkbox.disabled.checked:active,
 .checkbox.disabled.active.checked {

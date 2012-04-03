@@ -13,7 +13,7 @@ var app = express.createServer()
 	});
 
 app.use(express.static(__dirname+"/public"));
-app.use(express.static(__dirname+"/src"));
+//app.use(express.static(__dirname+"/src"));
 
 app.post('/session', function (req, res) {
 	var uuid = "";// relay.newSession();

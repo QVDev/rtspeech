@@ -7,13 +7,16 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		return document.querySelector(selector);
 	});
 
-	var features = ['webaudio', 'audiodata', 'websocketsbinary', 'webworkers', 'filereader', 'performance', 'usertiming'];
+	var features = ['webaudio', 'audiodata', 'websocketsbinary', 'webworkers', 'filereader', 'performance']
+	  , bonus = ['usertiming']
+	  , supported = true;
 
 	var loaded = false
 	  , stream, sessionId, isMobile = (platform !== "desktop")
 	  , toggleMC = $$(".toggle-media-capture")
 	  , toggleVis = $$("#toggle-vis")
 	  , featuresList = $$("#support .features")
+	  , browserSupportTitle = $$("#support .support-title")
 	  , audioElement = $$("#audio-element")
 
 	  , newSessionBtn = $$("#new-session")
@@ -56,22 +59,39 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	}
 
 	function featureSupport() {
-		var gen = "", elem, audio = false, f;
-				
-		for (var i=-1; ++i<features.length;) {
-			f = (features[i] == "webaudio" || features[i] == "audiodata");
-			elem = featuresList.querySelector("."+features[i]);
-			if (Modernizr[features[i]]) {		
-				elem.classList.add("yes");
-				f && (webaudio = true)
-				continue;
-			}
-
-			!f && elem.classList.add("no");
-		}
+		var gen = "", elem, audio = false, f
+		  , audioFeatures = features.slice(0, 2)
+		  , generalFeatures = features.slice(2);
 		
+		for (var i=-1; ++i<audioFeatures.length;) {
+			if (Modernizr[audioFeatures[i]]) {
+				featuresList.querySelector("."+audioFeatures[i])
+					.classList.add("yes");
+
+				audio = true;
+			}
+		}
+				
+		for (var i=-1; ++i<generalFeatures.length;) {			
+			if (Modernizr[generalFeatures[i]]) {
+				featuresList.querySelector("."+generalFeatures[i])
+					.classList.add("yes");
+				continue;
+			} 
+
+			supported = supported && false;
+		}
+
+		(supported = supported && audio) && support();
+		return supported;
 	}
 	
+	function support() {
+		browserSupportTitle.classList.remove("not_supported");
+		newSessionBtn.classList.remove("hidden");		
+		$$("#session-options").classList.remove("hidden");		
+	}
+
 	function bindMC () {
 		setTimeout(function () {
 			bindMCMinimizeBtn();
@@ -100,7 +120,49 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		samples = new Speex({ quality: 8 }).decode(encoded);
 
 		return samples;
-	}	
+	}
+
+	/**
+	  * Audio Element Integration
+	  * - Changes the current URL with a WAV Data uri
+	  */
+	function audioLoad() {
+		audioElement.onerror = function (evt) {		
+			/*
+			 * Firefox triggers MediaError#MEDIA_ERR_DECODE
+			 * Chrome triggers MediaError#MEDIA_ERR_SRC_NOT_SUPPORTED
+			 */		
+			if (evt.target.error.code < MediaError.MEDIA_ERR_DECODE) {
+				return;
+			}
+
+			var audio = evt.target;
+			HTTP.get(audio.src, function (data) {
+				File.read(data, "binarystring", function (result) {
+					var samples = oggRead(result);
+					var waveData = PCMData.encode({
+						sampleRate: 8000,
+						channelCount:   1,
+						bytesPerSample: 2,
+						data: samples
+					});
+
+					audio.controls = true;
+					audio.src = "data:audio/wav;base64,"+btoa(waveData);
+					audio.load();
+				}, function () {
+					console.error("Unable to read file");
+				});
+			}, { type: "blob" });
+		};
+
+		audioElement.src = "/samples/female.ogg";
+		audioElement.load();
+	}
+
+	if (!featureSupport()) {
+		return audioLoad();
+	}
 
 	// Toggle Visualization
 	toggleVis.addEventListener("change", function (evt) {
@@ -140,43 +202,7 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		newSessionBtn.parentNode.removeChild(newSessionBtn);
 	}, false);
 
-	featureSupport();
-
-	/**
-	  * Audio Element Integration
-	  * - Changes the current URL with a WAV Data uri
-	  */
-	audioElement.onerror = function (evt) {		
-		/*
-		 * Firefox triggers MediaError#MEDIA_ERR_DECODE
-		 * Chrome triggers MediaError#MEDIA_ERR_SRC_NOT_SUPPORTED
-		 */		
-		if (evt.target.error.code < MediaError.MEDIA_ERR_DECODE) {
-			return;
-		}
-
-		var audio = evt.target;
-		HTTP.get(audio.src, function (data) {
-			File.read(data, "binarystring", function (result) {
-				var samples = oggRead(result);
-				var waveData = PCMData.encode({
-					sampleRate: 8000,
-					channelCount:   1,
-					bytesPerSample: 2,
-					data: samples
-				});
-
-				audio.controls = true;
-				audio.src = "data:audio/wav;base64,"+btoa(waveData);
-				audio.load();
-			}, function () {
-				console.error("Unable to read file");
-			});
-		}, { type: "blob" });
-	};
-
-	audioElement.src = "/samples/female.ogg";
-	audioElement.load();
-
+	audioLoad();
+	
 	window.analytics = Analytics;
 });

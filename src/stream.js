@@ -18,6 +18,8 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 
 	function Stream(uuid, options) {
 		options = options || {};
+		this.server = 0;
+
 		this.codec_name = options.codec || "speex"; 
 		this.codec = new Codecs[this.codec_name]();
 
@@ -33,13 +35,7 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 		this.callee = options.callee || false;
 
 		//this.connection = new WS("ws://"+location.host+"/stream/"+uuid);		
-		this.connection = new WS("ws://"+Stream.relayUrl+"/"+uuid);
-		this.connection.binaryType = this.btype;
-		this.connection.onmessage = this.onmessage.bind(this);
-		this.connection.onerror = this.onerror.bind(this);
-		this.connection.onopen = this.onopen.bind(this);
-		this.connection.onclose = this.onclose.bind(this);
-
+		this.bind();
 		this.benchmark = false;
 				
 		Stream.trace = this;						
@@ -144,6 +140,10 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 		console.warn("Stream already full");
 	}
 
+	Stream.prototype.connected = function () {
+		return this.connection && this.connection.readyState == 1;
+	}
+
 	Stream.prototype.onopen = function () {
 		console.warn("Stream opened");		
 
@@ -156,8 +156,44 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 	}
 
 	Stream.prototype.onclose = function () {
-		console.warn("Stream closed");
-		analytics.stop();	
+		if (!this.bind()) {
+			console.warn("Stream closed");
+			return analytics.stop();	
+		}			
+	}
+
+	Stream.prototype.connect = function () {
+		var wsUrl = Stream.relayUrl[this.server++];
+
+		console.warn("trying ", wsUrl);
+		
+		if (!this.connection) {
+			delete this.connection;
+		}
+
+		this.connection = new WS("ws://" + wsUrl + "/");
+		this.connection.binaryType = this.btype;
+		this.connection.onmessage = this.onmessage.bind(this);
+		this.connection.onerror = this.onerror.bind(this);
+		this.connection.onopen = this.onopen.bind(this);
+		this.connection.onclose = this.onclose.bind(this);
+	}
+
+	Stream.prototype.bind = function () {
+		if (this.connected()) {
+			return true;
+		}
+
+		if (this.server == Stream.relayUrl.length) {
+			return true;
+		}
+
+		var self = this;
+		setTimeout(function () {
+			self.connect();	
+		}, 4);
+
+		return (this.connection && this.connection.readyState == 0);
 	}
 
 	Stream.prototype.onparamset = function (name, value) {

@@ -526,3 +526,17 @@ label {
 .checkbox.disabled.active.checked {
   background-position: -171px -260px;
 }
+
+/* line 382, ../../sass/screen.scss */
+#partners {
+  text-align: right;
+  padding: 20px;
+  border-top: 1px solid #CFCFCF;
+}
+
+/* line 388, ../../sass/screen.scss */
+#partners img {
+  position: relative;
+  height: 80px;
+  margin-right: 20px;
+}

@@ -1,3 +1,7 @@
+Modernizr.addTest("audiodata", function () {
+	return !!(new Audio()).mozSetup
+});
+
 Modernizr.addTest("usertiming", function () {
 	return Modernizr.performance && !!window.performance.mark && !!window.performance.measure
 });

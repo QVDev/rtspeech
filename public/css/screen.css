@@ -139,7 +139,7 @@ header span.toggle-media-capture.hidden {
 
 /* line 68, ../../sass/screen.scss */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* line 72, ../../sass/screen.scss */
@@ -169,12 +169,18 @@ p {
   margin-top: 10px;
 }
 
-/* line 88, ../../sass/screen.scss */
+/* line 87, ../../sass/screen.scss */
+#support > .support-title.not_supported::after {
+  content: "(Not Supported)";
+  color: rgba(184, 51, 20, 0.9);
+}
+
+/* line 91, ../../sass/screen.scss */
 .features {
   margin-top: 10px;
 }
 
-/* line 92, ../../sass/screen.scss */
+/* line 95, ../../sass/screen.scss */
 .features li {
   display: inline;
   text-align: center;
@@ -194,24 +200,25 @@ p {
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px inset, rgba(255, 255, 255, 0.8) 0 -1px inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px inset, rgba(255, 255, 255, 0.8) 0;
   list-style: none;
+  background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 113, ../../sass/screen.scss */
+/* line 117, ../../sass/screen.scss */
 .features > li.yes {
   background-color: rgba(120, 184, 20, 0.9);
 }
 
-/* line 117, ../../sass/screen.scss */
+/* line 121, ../../sass/screen.scss */
 .features > li.no {
   background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 121, ../../sass/screen.scss */
+/* line 125, ../../sass/screen.scss */
 #audio-element {
   display: block;
 }
 
-/* line 125, ../../sass/screen.scss */
+/* line 129, ../../sass/screen.scss */
 .username {
   border-radius: 10px;
   padding: 10px;
@@ -234,24 +241,24 @@ p {
   transition-timing-function: linear;
 }
 
-/* line 139, ../../sass/screen.scss */
+/* line 143, ../../sass/screen.scss */
 .text {
   padding-top: 10px;
   font-size: 14px;
   font-family: Arial;
 }
 
-/* line 145, ../../sass/screen.scss */
+/* line 149, ../../sass/screen.scss */
 .username.invisible {
   opacity: 0;
 }
 
-/* line 149, ../../sass/screen.scss */
+/* line 153, ../../sass/screen.scss */
 .username.invisible span {
   color: #A4A4A4;
 }
 
-/* line 153, ../../sass/screen.scss */
+/* line 157, ../../sass/screen.scss */
 .username span {
   color: #444;
   font-family: arial, sans-serif;
@@ -263,7 +270,7 @@ p {
   display: inline;
 }
 
-/* line 163, ../../sass/screen.scss */
+/* line 168, ../../sass/screen.scss */
 .username input {
   background: transparent;
   border: none;
@@ -275,32 +282,32 @@ p {
   text-align: center;
 }
 
-/* line 174, ../../sass/screen.scss */
+/* line 179, ../../sass/screen.scss */
 input[type='file'] {
   font-size: 12px;
 }
 
-/* line 178, ../../sass/screen.scss */
+/* line 183, ../../sass/screen.scss */
 p.bold, span.bold {
   font-weight: bold;
 }
 
-/* line 182, ../../sass/screen.scss */
+/* line 187, ../../sass/screen.scss */
 p.italic, span.italic {
   font-style: italic;
 }
 
-/* line 186, ../../sass/screen.scss */
+/* line 191, ../../sass/screen.scss */
 span.underline {
   text-decoration: underline;
 }
 
-/* line 190, ../../sass/screen.scss */
+/* line 195, ../../sass/screen.scss */
 span.verb {
   font-family: monospace;
 }
 
-/* line 194, ../../sass/screen.scss */
+/* line 199, ../../sass/screen.scss */
 #new-session {
   color: #7f7f7f;
   border: 2px solid #7f7f7f;
@@ -311,7 +318,7 @@ span.verb {
   letter-spacing: -1.2px;
 }
 
-/* line 204, ../../sass/screen.scss */
+/* line 209, ../../sass/screen.scss */
 #new-session:hover {
   border: 2px solid #4e4e4e;
   color: #4e4e4e;
@@ -319,18 +326,18 @@ span.verb {
   box-shadow: 0px 0px 16px #4e4e4e;
 }
 
-/* line 211, ../../sass/screen.scss */
+/* line 216, ../../sass/screen.scss */
 #new-session:active {
   border: 2px solid #a4a4a4;
   color: #a4a4a4;
 }
 
-/* line 216, ../../sass/screen.scss */
+/* line 221, ../../sass/screen.scss */
 #new-session {
   display: block;
 }
 
-/* line 220, ../../sass/screen.scss */
+/* line 225, ../../sass/screen.scss */
 #session-id {
   font-size: 13px;
   font-weight: bold;
@@ -338,17 +345,17 @@ span.verb {
   letter-spacing: -1px;
 }
 
-/* line 227, ../../sass/screen.scss */
+/* line 232, ../../sass/screen.scss */
 #session-container * {
   display: inline-block;
 }
 
-/* line 231, ../../sass/screen.scss */
+/* line 236, ../../sass/screen.scss */
 section {
   margin-top: 10px;
   padding-left: 50px;
 }
-/* line 235, ../../sass/screen.scss */
+/* line 240, ../../sass/screen.scss */
 section h2 {
   color: #333;
   font-family: arial, sans-serif;
@@ -361,7 +368,7 @@ section h2 {
   margin-top: 50px;
   text-transform: uppercase;
 }
-/* line 243, ../../sass/screen.scss */
+/* line 248, ../../sass/screen.scss */
 section h3 {
   color: #333;
   font-family: arial, sans-serif;
@@ -374,7 +381,7 @@ section h3 {
   margin-bottom: 20px;
 }
 
-/* line 251, ../../sass/screen.scss */
+/* line 256, ../../sass/screen.scss */
 section > .details {
   padding: 10px;
   border: 1px solid #CFCFCF;
@@ -384,18 +391,18 @@ section > .details {
   margin-bottom: 10px;
 }
 
-/* line 260, ../../sass/screen.scss */
+/* line 265, ../../sass/screen.scss */
 section#future-work {
   padding-bottom: 25px;
 }
 
-/* line 264, ../../sass/screen.scss */
+/* line 269, ../../sass/screen.scss */
 a {
   color: #08C;
   text-decoration: none;
 }
 
-/* line 269, ../../sass/screen.scss */
+/* line 274, ../../sass/screen.scss */
 canvas {
   padding-top: 10px;
   padding-right: 10px;
@@ -403,17 +410,17 @@ canvas {
   -moz-box-reflect: below 5px -moz-linear-gradient(top, transparent, transparent 50%, rgba(255, 255, 255, 0.2));
 }
 
-/* line 276, ../../sass/screen.scss */
+/* line 281, ../../sass/screen.scss */
 .codecs {
   margin-left: 40px;
 }
 
-/* line 280, ../../sass/screen.scss */
+/* line 285, ../../sass/screen.scss */
 .codecs > li {
   list-style: disc;
 }
 
-/* line 284, ../../sass/screen.scss */
+/* line 289, ../../sass/screen.scss */
 .mc-wrapper {
   left: -webkit-calc(50% - 15%) !important;
   top: -webkit-calc(50% - 15%) !important;
@@ -421,17 +428,17 @@ canvas {
   top: -moz-calc(50% - 15%) !important;
 }
 
-/* line 292, ../../sass/screen.scss */
+/* line 297, ../../sass/screen.scss */
 .mc-wrapper.hidden {
   left: 9999em !important;
 }
 
-/* line 296, ../../sass/screen.scss */
+/* line 301, ../../sass/screen.scss */
 .mc-minimize-button {
   display: none !important;
 }
 
-/* line 300, ../../sass/screen.scss */
+/* line 305, ../../sass/screen.scss */
 label {
   color: #888;
   font-size: 16px;
@@ -441,7 +448,7 @@ label {
 }
 
 /* CSS3 Uniform Checkbox (Modified) */
-/* line 309, ../../sass/screen.scss */
+/* line 314, ../../sass/screen.scss */
 .checkbox {
   background-image: url(/images/sprite.png) !important;
   background-repeat: no-repeat;
@@ -454,26 +461,26 @@ label {
   margin: 0px;
 }
 
-/* line 321, ../../sass/screen.scss */
+/* line 326, ../../sass/screen.scss */
 .checkbox {
   background-position: 0px -260px;
   height: 19px;
   width: 19px;
 }
 
-/* line 328, ../../sass/screen.scss */
+/* line 333, ../../sass/screen.scss */
 .checkbox:active,
 .checkbox.active {
   background-position: -19px -260px;
 }
 
-/* line 333, ../../sass/screen.scss */
+/* line 338, ../../sass/screen.scss */
 .checkbox.focus,
 .checkbox:hover {
   background-position: -38px -260px;
 }
 
-/* line 340, ../../sass/screen.scss */
+/* line 345, ../../sass/screen.scss */
 .checkbox.focus:active,
 .checkbox:active:hover,
 .checkbox.active:hover,
@@ -481,24 +488,24 @@ label {
   background-position: -57px -260px;
 }
 
-/* line 344, ../../sass/screen.scss */
+/* line 349, ../../sass/screen.scss */
 .checkbox:checked {
   background-position: -76px -260px;
 }
 
-/* line 349, ../../sass/screen.scss */
+/* line 354, ../../sass/screen.scss */
 .checkbox:active:checked,
 .checkbox.active:checked {
   background-position: -95px -260px;
 }
 
-/* line 354, ../../sass/screen.scss */
+/* line 359, ../../sass/screen.scss */
 .checkbox.focus.checked,
 .checkbox.checked:hover {
   background-position: -114px -260px;
 }
 
-/* line 361, ../../sass/screen.scss */
+/* line 366, ../../sass/screen.scss */
 .checkbox.focus.checked:active,
 .checkbox:hover.checked:active,
 .checkbox.active:hover.checked,
@@ -506,14 +513,14 @@ label {
   background-position: -133px -260px;
 }
 
-/* line 367, ../../sass/screen.scss */
+/* line 372, ../../sass/screen.scss */
 .checkbox.disabled,
 .checkbox.disabled:active,
 .checkbox.disabled.active {
   background-position: -152px -260px;
 }
 
-/* line 373, ../../sass/screen.scss */
+/* line 378, ../../sass/screen.scss */
 .checkbox.disabled.checked,
 .checkbox.disabled.checked:active,
 .checkbox.disabled.active.checked {

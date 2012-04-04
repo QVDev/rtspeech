@@ -1,5 +1,7 @@
 var express = require('express')
   , url = require('url')
+  , path = require('path')
+  , fs = require('fs')
   , argv = require('optimist')
 	.usage("Usage: index.js --port [num]")
 	.demand(['port'])
@@ -9,17 +11,20 @@ var WebSocketServer = require('ws').Server
   , WebSocket = require('ws')
   , app = express.createServer()
   , Logger = require('bunyan')
-  , logn = 0;
 
-var monrd = new WebSocketServer({ 
-  	server: app
-});
+var logn = 0
+  , basepath = path.join(".", "logs", Date.now()+"")
+  , monrd = new WebSocketServer({ 
+  		server: app
+  	});
+  
+fs.mkdirSync(basepath);
 
 monrd.on('connection', function(ws) {
 	var name = url.parse(ws.upgradeReq.url, true)
 				.pathname == "/mon" ? 'relay' : 'clients_'+logn++;
 
-	var logpath = "./logs/"+name+".json"
+	var logpath = path.join(basepath, name + ".json")
 	  , log = new Logger({
 		  	name: name
 		  , streams: [
@@ -36,7 +41,9 @@ monrd.on('connection', function(ws) {
 	ws.on('message', function (message) {
 		measures = JSON.parse(message);
 		if (measures.metrics.location) {
-			log.debug({	location: measures.metrics.location	}, "location");
+			log.debug({	
+				location: measures.metrics.location	
+			}, "location");
 		}
 
 		log.debug({ measures: measures }, "measures");

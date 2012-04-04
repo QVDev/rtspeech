@@ -1,4 +1,7 @@
-(function () {
+(function () {	
+	// Performance "dummy polyfill"
+	!window["performance"] && (window["performance"] = { timing: { navigationStart: Date.now(), fetchStart: Date.now() } }) 
+	
 	var navStart = performance.timing.navigationStart
 	  , fetchStart = performance.timing.fetchStart;
 

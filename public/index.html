@@ -51,7 +51,7 @@
 
 			</div>
 
-			<div id="session-options" class="details">
+			<div id="session-options" class="details hidden">
 				<h3 class="summary">Voice chat options</h2>
 				<p>
 					<label for="visualization">
@@ -88,9 +88,33 @@
 			</div>
 
 			<div id="session-container">
-				<button id="new-session">new session</button>
+				<button id="new-session" class="hidden">new session</button>
 			</div>
 		</section>
+
+		<section id="support">
+			<h2 class="not_supported support-title">Browser Compatibility</h1>
+			<ul class="features">
+				<li class="audiodata webaudio">Low Level Audio APIs</li>
+				<li class="websocketsbinary">WebSockets Binary</li>
+				<li class="webworkers">Web Workers</li>
+				<li class="filereader">File Reader</li>
+				
+				<li class="performance">Performance</li>
+				<li class="usertiming">User Timing API [1]</li>
+			</ul>
+
+			<p class="text">Tested on <span class="bold">Chrome 17+</span>, <span class="bold">Firefox 11+</span>, <span class="bold">Firefox Mobile Aurora </span> (only playback).</p>
+
+			<p class="text">On mobile, it is only audible with the <span class="underline">G711</span> codec. Speex is too heavy on the CPU, causing too much breaks on the audio.</p>			
+			
+			<p class="text">The tested device was a Samsung Galaxy S (Android 2.3.7). Other devices may perform better.</p>
+			
+			<p class="notes text">
+				[1] - <a href="http://dvcs.w3.org/hg/webperf/raw-file/tip/specs/UserTiming/Overview.html">This</a> API is not yet available in any browser. A polyfill is used here to support our measurements.
+			</p>
+		</section>
+
 
 		<section id="disclaimer">
 			<h2>Disclaimer</h1>
@@ -130,29 +154,6 @@
 					<li><a href="http://code.google.com/p/swfobject">swfobject </a>-<span> Flash object integration</span></li>
 					<li><a href="https://github.com/grantgalitz/XAudioJS">XAudioJS </a>-<span> Polyfill for the Audio APIs, but only used when Web Audio API</span></li>
 				</ul>			
-			</p>
-		</section>
-
-		<section id="support">
-			<h2>Browser Compatibility</h1>
-			<ul class="features">
-				<li class="audiodata webaudio">Low Level Audio APIs</li>
-				<li class="websocketsbinary">WebSockets Binary</li>
-				<li class="webworkers">Web Workers</li>
-				<li class="filereader">File Reader</li>
-				
-				<li class="performance">Performance</li>
-				<li class="usertiming">User Timing API [1]</li>
-			</ul>
-
-			<p class="text">Tested on <span class="bold">Chrome 17+</span>, <span class="bold">Firefox 11+</span>, <span class="bold">Firefox Mobile Aurora </span> (only playback).</p>
-
-			<p class="text">On mobile, it is only audible with the <span class="underline">G711</span> codec. Speex is too heavy on the CPU, causing too much breaks on the audio.</p>			
-			
-			<p class="text">The tested device was a Samsung Galaxy S (Android 2.3.7). Other devices may perform better.</p>
-			
-			<p class="notes text">
-				[1] - <a href="http://dvcs.w3.org/hg/webperf/raw-file/tip/specs/UserTiming/Overview.html">This</a> API is not yet available in any browser. A polyfill is used here to support our measurements.
 			</p>
 		</section>
 
@@ -226,6 +227,6 @@
 		<script src="/dist/g711.min.js"></script>
 
 		<!-- App Main -->
-		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
+		<script data-main="/app.js" src="/js/lib/require.js"></script>
 	</body>
 </html>

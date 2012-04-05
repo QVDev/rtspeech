@@ -10,8 +10,11 @@
     , "express": "latest"
     , "ws": "latest"
     , "log": "latest"
-	, "bunyan": "latest"
-	, "requirejs": "latest"
+	  , "bunyan": "latest"
+	  , "requirejs": "latest"
+  }
+  , "scripts": {
+    "start": "node index --port 4000"
   }
   , "main": "index"
   , "engines": { "node": "0.6.x" }

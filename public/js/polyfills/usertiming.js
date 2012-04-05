@@ -49,6 +49,8 @@
 			return;
 		}
 
+		endMark = endMark || "";
+
 		var startIdx, endIdx, evalue, length;
 
 		startIdx = (marks[startMark] || []).length - 1;
@@ -56,7 +58,7 @@
 
 		evalue = marks[endMark] !== undefined ? marks[endMark][endIdx] : fetchStart;
 
-		measures[name].push(marks[endMark][endIdx] - marks[startMark][startIdx]);
+		measures[name].push(evalue - marks[startMark][startIdx]);
 	}
 
 	performance.__proto__.getMeasures = function (name) {

@@ -102,7 +102,7 @@
                     if (self.callback) {
                         setTimeout(function () {
                             self.callback();
-                        }, 500); // Wait until flash is loaded
+                        }, options["timeout"]); // Wait until flash is loaded
                     }
                 }
             );

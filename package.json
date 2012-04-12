@@ -7,11 +7,13 @@
   , "private": true
   , "dependencies": {
       "optimist": "latest"	   
+	, "connect-gzip": "latest"
     , "express": "latest"
     , "ws": "latest"
     , "log": "latest"
-	  , "bunyan": "latest"
-	  , "requirejs": "latest"
+    , "bunyan": "latest"
+    , "requirejs": "latest"
+    , "useragent": "latest"
   }
   , "scripts": {
     "start": "node index --port 4000"

@@ -64,6 +64,7 @@
 						<span>Codec:</span>
 						<select id="select-codec" name="codec" class="selector">
 							<option name="speex">Speex</option>
+							<option name="amrnb" selected>AMR-NB</option>
 							<option name="pcma">PCMA (G711)</option>
 							<option name="pcmu">PCMU (G711)</option>
 						</select>
@@ -228,10 +229,17 @@
 
 		<script src="/dist/deps.min.js"></script>
 		
-		<!-- Codecs -->
+		<!-- Codecs 
+
 		<script src="/dist/speex.min.js"></script>
+		<script src="/dist/amrnb.min.js"></script>
 		<script src="/dist/g711.min.js"></script>
 
+		-->
+		
+		<!-- Codecs Bundle -->
+		<script src="/dist/bundle.min.js"></script>
+		
 		<!-- App Main -->
 		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
 	</body>

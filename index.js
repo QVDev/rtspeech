@@ -1,4 +1,5 @@
 var express = require('express')
+  , gzip = require('connect-gzip')
   , argv = require('optimist')
 	.usage("Usage: index.js --port [num]")
 	.demand(['port'])
@@ -12,6 +13,7 @@ var app = express.createServer()
 		}
 	});
 
+app.use(gzip.gzip());
 app.use(express.static(__dirname+"/public"));
 //app.use(express.static(__dirname+"/src"));
 

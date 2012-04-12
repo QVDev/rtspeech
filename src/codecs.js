@@ -90,6 +90,19 @@ define('codecs', ['util'], function (util) {
 		}
 	}
 
+	function AMRCodec() {
+		this.params = {};
+
+		Codec.apply(this, arguments);
+	}
+
+	util.inherit(AMRCodec, SpeexCodec);
+
+	AMRCodec.prototype.init = function () {
+		return new AMR(this.params);
+	}
+
+
 	function PCMUCodec() {				
 		this.params = {
 	  		floating_point: true // returns the samples in floats 
@@ -127,6 +140,7 @@ define('codecs', ['util'], function (util) {
 
 	return {
 	  	speex: SpeexCodec
+	  , amrnb: AMRCodec
 	  , pcma: PCMACodec
 	  , pcmu: PCMUCodec
 	  , Worker: CodecWorker

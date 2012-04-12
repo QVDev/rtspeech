@@ -136,7 +136,9 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 				return;
 			}
 
-			var audio = evt.target;
+			var audio = evt.target
+			  , parent = evt.target.parentNode;
+						
 			HTTP.get(audio.src, function (data) {
 				File.read(data, "binarystring", function (result) {
 					var samples = oggRead(result);
@@ -146,14 +148,20 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 						bytesPerSample: 2,
 						data: samples
 					});
-
+					
 					audio.controls = true;
 					audio.src = "data:audio/wav;base64,"+btoa(waveData);
 					audio.load();
+
+					// Firefox hack to make audio element appear
+					parent.removeChild(audio);
+					parent.appendChild(audio);
 				}, function () {
 					console.error("Unable to read file");
 				});
-			}, { type: "blob" });
+			}, { 
+				type: "arraybuffer" 
+			});
 		};
 
 		audioElement.src = "/samples/female.ogg";

@@ -1,27 +1,34 @@
 #!/usr/bin/env node
-var argv = require('optimist')
+var util = require('util')
+  , useragent = require('useragent')
+  , argv = require('optimist')
 	.usage("Usage: logf --m [metric]")
 	.demand(['m'])
 	.argv;
 
 var yrange = argv.y.split(":")
 
-process.stdout.write("set title \"Metric: "+argv.m+"\"\n");
 process.stdout.write("set ylabel \""+argv.m+"\"\n");
 process.stdout.write("set yrange["+yrange[0]+":"+yrange[1]+"]\n");
 
-var metrics, x=-1, begin = true;
+var x=-1
+  , begin = true, titled = false
+  , filters = {
+  		"avg": 0
+  	  , "min": 1
+  	  , "max": 2
+	};
 
 function plot(data, arg_m) {
 	var tks = arg_m.split(".")
 	  , type = tks[0]
-	  , metric = tks[1];
-
+	  , metric = tks[1]
+	  , filter = filters[tks[2]];
 
 	var i, set;
 
 	set = data[type][metric];
-	
+
 	if (!set || set.length == 0) {
 		return;	
 	}
@@ -31,23 +38,42 @@ function plot(data, arg_m) {
 	}
 
 	for (i=-1; ++i<set.length;) {
-		process.stdout.write(++x+" "+set[i]+"\n");		
+		process.stdout.write(++x+" "+(typeof(filter) === "number" ? set[i][filter] : set[i])+"\n");		
 	}	
+}
+
+function browser(ua) {
+	return useragent.parse(ua).toString();
+}
+
+function setTitle(metrics) {
+	if (metrics.ua) {
+		process.stdout.write("set title \"Metric: "+argv.m+"  Browser:"+browser(metrics.ua)+"  Codec="+metrics.codec+"\"\n");				
+	}
+
+	begin = false;
+	titled = true;
+	process.stdout.write("plot \"-\"\n");
+	return true;
 }
 
 process.stdin.setEncoding('ascii');
 process.stdin.resume();
 process.stdin.on('data', function (chunk) {
-	begin && process.stdout.write("plot \"-\"\n") && (begin = false)
+	titled && process.stdout.write("plot \"-\"\n") && (begin = false);
 	var lines = chunk.split("\n")
 	  , json;
 	
 	try {
 		for (var i=-1; ++i<lines.length;) {
 			json = JSON.parse(lines[i], true);
-			!!json.measures && plot(json.measures, argv.m);
+			if (!!json.measures) {
+				!titled && setTitle(json.measures.metrics);
+				plot(json.measures, argv.m);
+			}
 		}
 	} catch (err) {
+		//console.log(err)
 		process.stdout.write("e\n");
 		begin = true;
 	}

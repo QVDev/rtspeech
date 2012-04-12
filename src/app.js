@@ -26,7 +26,8 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 
 	  , codecSelector = $$("#select-codec")
 	  , codecsAvailable = codecSelector.options
-	  , codec = codecSelector.options[0].getAttribute("name");
+	  , codecSelected = codecSelector.selectedIndex
+	  , codec = codecSelector.options[codecSelected].getAttribute("name");
 
 	function urlSessionId() {
 		var hash = location.hash[0] == "#" ? location.hash.substring(1) : false;
@@ -193,7 +194,8 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 
 	// Codec selection
 	codecSelector.addEventListener("change", function (evt) {
-		codec = codecsAvailable[evt.target.options.selectedIndex].getAttribute("name");
+		codecSelected = evt.target.options.selectedIndex;		
+		codec = codecsAvailable[codecSelected].getAttribute("name");
 
 		!!stream && stream.set("codec", codec);
 	}, false);

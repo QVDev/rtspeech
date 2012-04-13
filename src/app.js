@@ -49,6 +49,20 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 			"<span id='session-id'>Copy this <a href='"+url+"'>url</a> to another browser</span>";
 	}
 
+	function feedbackDialog() {
+		
+	}
+
+	// Only when Media Capture UI is created
+	function bindMCCloseBtn() {
+		var stopBtn = $$(".mc-wrapper .mc-menu .mc-stop");
+
+		!!stopBtn && stopBtn.addEventListener("click", function (evt) {			
+			stream.close();
+			feedbackDialog();
+		}, false);
+	}
+
 	// Only when Media Capture UI is created
 	function bindMCMinimizeBtn() {
 		var minimizeBtn = $$(".mc-wrapper .mc-controls .mc-minimize-button");
@@ -92,11 +106,12 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		newSessionBtn.classList.remove("hidden");		
 		$$("#session-options").classList.remove("hidden");		
 	}
-
+	
 	function bindMC () {
 		setTimeout(function () {
-			bindMCMinimizeBtn();
-		}, 1000);
+			//bindMCMinimizeBtn();
+			bindMCCloseBtn();
+		}, 2500);
 	}
 
 	function changeCodec(name, value) {

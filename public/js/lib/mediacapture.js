@@ -14,41 +14,12 @@
         return undefined;
     }
 
-    var dev = navigator.device, ui = {},
-        BlobBuilder = global.WebKitBlobBuilder || global.MozBlobBuilder || global.BlobBuilder,
-        FileReader = global.WebKitFileReader || global.MozFileReader || global.FileReader,
-        URL = global.webkitURL || global.MozURL || global.URL,
+    var dev = {}, ui = {},
         options = {
             stylesheet: MCParam('stylesheet') || "mediacapture.css"
           , swf: MCParam('swf') || "MediaCapture.swf" 
           , timeout: MCParam('timeout') || 200
         };
-
-
-    function toObjectURL(contentType, bdata) {
-        return URL.createObjectURL(toBlob(contentType, bdata));
-    }
-
-    function toBlob(contentType, data) {
-        if (!BlobBuilder) {
-            return { data: data };
-        }
-
-        var blob, bdata = window.atob(data),
-            ui8a = new Uint8Array(bdata.length), i, bb = new BlobBuilder();
-
-        for (i = 0; i < ui8a.length; i++) {
-            ui8a[i] = bdata.charCodeAt(i);
-        }
-
-        bb.append(ui8a.buffer);
-        blob = bb.getBlob(contentType);        
-        return blob;
-    }
-
-    function toDataURL(contentType, dataStr) {
-        return 'data:' + contentType + ';base64,' + dataStr;
-    }
 
     dev = {
         load: function (cb) {
@@ -216,268 +187,28 @@
     CaptureError.CAPTURE_INVALID_ARGUMENT = 2;
     CaptureError.CAPTURE_NO_MEDIA_FILES = 3;
 
-    function captureCB(files, callback) {
-        return callback(files);
-    }
+    window.microphone = {
+        capture: function captureAudio() {
+            dev.load(function () {
+                dev.flashElement.init();
 
-    function captureErrorCB(error, callback) {
-        return callback(new CaptureError(error));
-    }
+                function record() {
+                    //dev.flashElement.captureAudio();
+                    dev.flashElement.capture();
 
-    function captureAudioOptions(options) {
-        return  {
-            limit: options.limit || 1,
-            duration: options.duration || 0
-        };
-    }
-
-    function captureImageOptions(options) {
-        return  {
-            limit: options.limit || 1,
-            width: options.width,
-            height: options.height,
-            format: options.format
-        };
-    }
-
-    function captureVideoOptions(options) {
-        return  {
-            limit: options.limit || 1,
-            duration: options.duration || 0
-        };
-    }
-
-    function MediaFileData(codecs, bitrate, height, width, duration) {
-        this.codecs = codecs;
-        this.bitrate = bitrate;
-        this.height = height;
-        this.width = width;
-        this.duration = duration;
-    }
-
-    function imageMediaFileData(codecs, height, width) {
-        return new MediaFileData(codecs, 0, height, width, 0);
-    }
-
-    function videoMediaFileData(codecs, height, width, duration) {
-        return new MediaFileData(codecs, 0, height, width, duration);
-    }
-
-    function audioMediaFileData(codecs, bitrate, duration) {
-        return new MediaFileData(codecs, bitrate, 0, 0, duration);
-    }
-
-    function captureAudio(success, error, options) {
-        var pending = new PendingOperation(null);
-        options = options || {};
-        
-        var withSamples = (typeof (options.onsamples) === "undefined") ? "0" : "1"
-          , samplesCB = (withSamples == "1" ? options.onsamples : null)
-          , isDataURI = options.uri || false
-          , isRaw = options.raw || false;
-
-        dev.load(function () {
-            global.__mediacapture_audioerror = function (code) {
-                captureErrorCB(code, error);
-            };
-
-            global.__mediacapture_audiosamples = function (base64) {
-                samplesCB && samplesCB(base64);
-            }
-
-            global.__mediacapture_audiocomplete = function (audio) {
-                var file = isRaw ? audio : toBlob("audio/wav", audio)
-                  , size = file.length || file.size;
-
-                if (size == dev.FLASH_SIZE_WITHOUT_PERMISSION) {
-                    return captureErrorCB(CaptureError.CAPTURE_NO_MEDIA_FILES, error);
+                    ui.toggleCaptureBtn();
                 }
 
+                function cancel() {
+                    //dev.flashElement.cancelAudio();
+                    dev.flashElement.cancel();
 
-                captureCB(file, success);
-            };
-
-            options = captureAudioOptions(options || {});
-            dev.flashElement.initMicrophone(options.limit, options.duration, withSamples);
-
-            function record() {
-                dev.flashElement.captureAudio();
-
-                ui.toggleCaptureBtn();
-            }
-
-            function cancel() {
-                dev.flashElement.cancelAudio();
-
-                ui.toggleCaptureBtn();
-                ui.toggleStopBtn();
-
-                options.limit--;
-                if (options.limit == 0) {
+                    ui.toggleStopBtn();
                     ui.hide();
                 }
-            }
 
-            ui.show(record, cancel);
-            pending.cancel =  dev.flashElement.cancelAudio;
-            return pending;
-        });
-
-        return pending;
-    }
-
-    function captureImage(success, error, options) {
-        var pending = {};
-        options = options || {};
-
-        dev.load(function () {
-            var codec = options.codec || "jpeg";
-
-            global.__mediacapture_cameraerror = function (code) {
-                captureErrorCB(code, error);
-            };
-
-            global.__mediacapture_cameracomplete = function (frame) {
-                var file = toBlob("image/" + codec, frame);
-                captureCB(file, success);
-            };
-
-
-            options = captureImageOptions(options || {});
-            dev.flashElement.initCamera(options.limit, options.duration);
-
-            function takePicture() {
-                dev.flashElement.captureImage(codec);
-
-                options.limit--;
-                if (options.limit == 0) {
-                    ui.hide();
-                }
-            }
-
-            function cancel() {
-                dev.flashElement.cancelVideo();
-            }
-
-            ui.show(takePicture, cancel);
-            pending.cancel =  dev.flashElement.cancelVideo;
-            return pending;
-        });
-        return pending;
-    }
-
-    // 'XXX' - Flash is unable to record videos locally
-    function captureVideo(success, error, options) {
-        throw new Error("Video recording not available");
-    }
-
-    /*
-     * HTML Media Capture API
-     *
-     * http://www.w3.org/TR/media-capture-api/
-     *
-     * 'XXX' - Assert media formats available for browser vendors
-     */
-    var imageCodecs = ["png", "jpeg", "jpg"],
-        imageFormats = [
-            imageMediaFileData(imageCodecs[0], 640, 480),
-            imageMediaFileData(imageCodecs[1], 640, 480),
-            imageMediaFileData(imageCodecs[2], 640, 480)
-        ], audioFormats = [
-            audioMediaFileData("wav", 0, 0)   
-        ];
-
-    navigator.device = {
-        supportedImageFormats: imageFormats,
-        supportedAudioFormats: audioFormats,
-
-        captureImage: captureImage,
-        captureAudio: captureAudio,
-
-        captureVideo: undefined
+                ui.show(record, cancel);
+            });
+        }
     };
-
-
-
-
-    /*
-     * HTML Media Capture form handling
-     *
-     * http://www.w3.org/TR/html-media-capture/
-     *
-     */
-    function isCodecValid(supported, codec) {
-        for (var i = 0; i < supported.length; i++) {
-            if (supported.indexOf(supported[i].codecs)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    function capture(device, type, codec, element) {
-        function savePicture(blob) {
-            var img = document.createElement("img");
-              //img.src = toDataURL("image/"+codec, blob.data);
-            if (BlobBuilder && URL) {
-                img.src = URL.createObjectURL(blob);
-			    img.addEventListener("load", function (evt) {
-                    URL.revokeObjectURL(this.src);
-                }, false);
-            } else {
-                img.src = toDataURL("image/" + codec, blob.data);
-            }
-
-            element.parentNode.appendChild(img);
-
-        }
-
-        function saveAudio(blob) {
-            var audio = document.createElement("audio");
-            if (BlobBuilder && URL) {
-                audio.src = URL.createObjectURL(blob);
-                URL.revokeObjectURL(this.src);
-            } else {
-                audio.src = toDataURL("audio/" + codec, blob.data);
-            }
-
-            audio.autoplay = "autoplay";
-            audio.controls = "controls";
-
-            element.parentNode.appendChild(audio);
-        }
-
-        if (device === "camera" && type === "image" && isCodecValid(imageFormats, codec)) {
-            captureImage(savePicture, function (code) {}, { codec: codec });
-        } else if (device === "microphone" && type === "audio" && isCodecValid(imageFormats, codec)) {
-            captureAudio(saveAudio, function (code) {});
-        } else if (device === "camcorder") {
-            return false; //
-        } else {
-            return false;
-        }
-
-        return true;
-    }
- 
-    function inputCaptureCB(evt) {
-        var element = evt.target,
-            tokens = element.getAttribute("accept").split("/"),
-            capt = element.getAttribute("capture");
-
-        if (capture(capt, tokens[0], tokens[1], element)) {
-            evt.preventDefault();
-            return false;
-        }
-    }
-
-    var elements = document.querySelectorAll("input[type='file'][accept][capture]"), i; // File inputs with capture
-    for (i = 0; i < elements.length; i++) {
-        elements[i].addEventListener("click", inputCaptureCB, false);
-    }
-    window.__log = function (m) {
-        console.log(m);
-    }
-
 }(window));

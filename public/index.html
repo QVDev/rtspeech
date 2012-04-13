@@ -208,7 +208,7 @@
 			<img src="/images/atnog.png" />
 		</section>
 		
-		<!-- Media Capture settings  -->
+		<!-- Media Capture UI settings  -->
 		<script>
 		__MediaCaptureUI = { 
 			stylesheet: "/css/mediacapture.css"
@@ -223,24 +223,25 @@
 		<script src="/js/lib/pcmdata.js"></script>
 		<script src="/js/lib/mediacapture.js"></script>
 		<script src="/js/lib/bitstring.min.js"></script>
-		<script src="/js/lib/xaudio.js"></script>
+		<script src="/js/polyfills/xaudio.js"></script>
+ 		
+ 		-->				
 		
-		-->
-
 		<script src="/dist/deps.min.js"></script>
 		
 		<!-- Codecs 
 
 		<script src="/dist/speex.min.js"></script>
 		<script src="/dist/amrnb.min.js"></script>
-		<script src="/dist/g711.min.js"></script>
-
-		-->
+		<script src="/dist/g711.js"></script>
 		
+		-->
+
 		<!-- Codecs Bundle -->
 		<script src="/dist/bundle.min.js"></script>
 		
+		
 		<!-- App Main -->
-		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
+		<script data-main="/app.js" src="/js/lib/require.js"></script>
 	</body>
 </html>

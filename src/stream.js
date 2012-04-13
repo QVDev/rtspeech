@@ -32,6 +32,7 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 		this.DataView = this.codec_name == "speex" ? Uint8Array : Int8Array;
 
 		this.loaded = false;
+		this.closed = false;
 		this.callee = options.callee || false;
 
 		//this.connection = new WS("ws://"+location.host+"/stream/"+uuid);		
@@ -157,10 +158,15 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 	}
 
 	Stream.prototype.onclose = function () {
-		if (!this.bind()) {
+		if (this.closed || !this.bind()) {
 			console.warn("Stream closed");
 			return analytics.stop();	
 		}			
+	}
+
+	Stream.prototype.close = function () {
+		this.closed = true; // differ connection failure from a valid close
+		this.connection.close();
 	}
 
 	Stream.prototype.connect = function () {
@@ -185,6 +191,7 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 			return true;
 		}
 
+		// no more relays?
 		if (this.server == Stream.relayUrl.length) {
 			return true;
 		}

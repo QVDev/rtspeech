@@ -13,11 +13,24 @@
       		<link href="/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
   		<![endif]-->
 
-  		<script src="js/lib/modernizr.min.js"></script>  		
-  		<script src="js/lib/modernizr-tests.js"></script> 
+  		<script src="/js/lib/modernizr.min.js"></script>  		
+  		<script src="/js/lib/modernizr-tests.js"></script>
+
+  		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-30938101-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+
+		</script>
 	</head>
 
-	<body>
+	<body>		
 		<header>
 			<h1 class="title">Real-time JS Speech encoding - Tech Preview</h1>
 			<span class="toggle-media-capture hidden">[show]</span>
@@ -101,7 +114,7 @@
 
 		<section id="disclaimer">
 			<h2>Disclaimer</h1>
-			<p class="text">During the audio stream we have gathered performance metrics. We collect transport and codec metrics such as encode/decode times, packet size, rtt, etc. The location we ask you to provide is important to assess the codec performance with the estimated latency of your connection.</p>
+			<p class="text">During the audio stream we gather performance metrics. We collect transport and codec metrics such as encode/decode times, packet size, rtt, etc. The location we ask you to provide is important to assess the codec performance with the estimated latency of your connection.</p>
 		</section>
 
 		<section id="support">
@@ -182,7 +195,7 @@
 
 		<section id="acknowledgments">
 			<h2>Acknowledgments</h1>
-			<p class="text">We would like to thank <a href="http://atnog.av.it.pt/~jpbarraca/">João Paulo Barraca</a> for its significant help in the audio quality tests and benchmark. Also, <a href="http://atnog.av.it.pt/members/rportugal">Ricardo Portugal</a> and <a href="http://atnog.av.it.pt/members/cguimaraes">Carlos Guimarães</a> for their help in the preliminary tests.</p>
+			<p class="text">We would like to thank <a href="http://atnog.av.it.pt/~jpbarraca/">João Paulo Barraca</a> for his significant help in the audio quality tests and benchmark. Also, <a href="http://atnog.av.it.pt/members/rportugal">Ricardo Portugal</a> and <a href="http://atnog.av.it.pt/members/cguimaraes">Carlos Guimarães</a> for their help in the preliminary tests.</p>
 		</section>
 
 		<section id="future-work">
@@ -221,8 +234,8 @@
 			<img src="/images/it.png" />
 			<img src="/images/ua.png" />
 			<img src="/images/atnog.png" />
-		</section>
-		
+		</section>		
+
 		<!-- Media Capture UI settings  -->
 		<script>
 		__MediaCaptureUI = { 

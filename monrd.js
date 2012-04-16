@@ -40,7 +40,7 @@ monrd.on('connection', function(ws) {
 
 	ws.on('message', function (message) {
 		measures = JSON.parse(message);
-		if (measures.metrics.location) {
+		if (measures.metrics && measures.metrics.location) {
 			log.debug({	
 				location: measures.metrics.location	
 			}, "location");

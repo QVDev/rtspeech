@@ -31,8 +31,10 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 		this.btype = 'arraybuffer';
 		this.DataView = this.codec_name == "speex" ? Uint8Array : Int8Array;
 
-		this.loaded = false;
+		this.active = false;
+		this.loaded = false;				
 		this.closed = false;
+				
 		this.callee = options.callee || false;
 
 		//this.connection = new WS("ws://"+location.host+"/stream/"+uuid);		

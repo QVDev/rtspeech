@@ -75,20 +75,21 @@ body {
   font-size: 13px;
   line-height: 18px;
   color: #333;
+  padding-bottom: 50px;
 }
 
-/* line 27, ../../sass/screen.scss */
+/* line 28, ../../sass/screen.scss */
 li {
   list-style: disc;
 }
 
-/* line 31, ../../sass/screen.scss */
+/* line 32, ../../sass/screen.scss */
 header {
   height: 40px;
   border-bottom: 5px solid #333;
   padding: 10px 0px 0px 0px;
 }
-/* line 36, ../../sass/screen.scss */
+/* line 37, ../../sass/screen.scss */
 header h1.title {
   color: #333;
   font-family: arial, sans-serif;
@@ -100,7 +101,7 @@ header h1.title {
   letter-spacing: -2.2px !important;
   display: inline;
 }
-/* line 43, ../../sass/screen.scss */
+/* line 44, ../../sass/screen.scss */
 header span.toggle-media-capture {
   color: #333;
   font-family: arial, sans-serif;
@@ -127,22 +128,54 @@ header span.toggle-media-capture {
   -o-transition-timing-function: linear;
   transition-timing-function: linear;
 }
-/* line 57, ../../sass/screen.scss */
+/* line 58, ../../sass/screen.scss */
 header span.toggle-media-capture:hover {
   color: #7F7F7F;
 }
-/* line 61, ../../sass/screen.scss */
+/* line 62, ../../sass/screen.scss */
 header span.toggle-media-capture.hidden {
   opacity: 0 !important;
   display: inline !important;
 }
 
-/* line 68, ../../sass/screen.scss */
+/* line 69, ../../sass/screen.scss */
+nav {
+  position: absolute;
+  right: 10px;
+}
+
+/* line 74, ../../sass/screen.scss */
+nav > li {
+  background: rgba(3, 3, 3, 0.8);
+  display: inline-block;
+  height: 40px;
+  width: 130px;
+  text-align: center;
+  line-height: 40px;
+}
+
+/* line 83, ../../sass/screen.scss */
+nav > li > a {
+  color: #fff;
+  font-family: arial, sans-serif;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: bold;
+  font-size: 16px;
+  letter-spacing: -1px;
+}
+
+/* line 93, ../../sass/screen.scss */
+nav > li > a:hover, a.active {
+  color: #08C;
+}
+
+/* line 97, ../../sass/screen.scss */
 .hidden {
   display: none !important;
 }
 
-/* line 72, ../../sass/screen.scss */
+/* line 101, ../../sass/screen.scss */
 canvas {
   opacity: 1;
   -moz-transition-property: opacity;
@@ -159,28 +192,28 @@ canvas {
   transition-timing-function: linear;
 }
 
-/* line 80, ../../sass/screen.scss */
+/* line 109, ../../sass/screen.scss */
 canvas.invisible {
   opacity: 0;
 }
 
-/* line 84, ../../sass/screen.scss */
+/* line 113, ../../sass/screen.scss */
 p {
   margin-top: 10px;
 }
 
-/* line 87, ../../sass/screen.scss */
+/* line 116, ../../sass/screen.scss */
 #support > .support-title.not_supported::after {
   content: "(Not Supported)";
   color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 91, ../../sass/screen.scss */
+/* line 120, ../../sass/screen.scss */
 .features {
   margin-top: 10px;
 }
 
-/* line 95, ../../sass/screen.scss */
+/* line 124, ../../sass/screen.scss */
 .features li {
   display: inline;
   text-align: center;
@@ -203,22 +236,22 @@ p {
   background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 117, ../../sass/screen.scss */
+/* line 146, ../../sass/screen.scss */
 .features > li.yes {
   background-color: rgba(120, 184, 20, 0.9);
 }
 
-/* line 121, ../../sass/screen.scss */
+/* line 150, ../../sass/screen.scss */
 .features > li.no {
   background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 125, ../../sass/screen.scss */
+/* line 154, ../../sass/screen.scss */
 #audio-element {
   display: block;
 }
 
-/* line 129, ../../sass/screen.scss */
+/* line 158, ../../sass/screen.scss */
 .username {
   border-radius: 10px;
   padding: 10px;
@@ -241,24 +274,24 @@ p {
   transition-timing-function: linear;
 }
 
-/* line 143, ../../sass/screen.scss */
+/* line 172, ../../sass/screen.scss */
 .text {
   padding-top: 10px;
   font-size: 14px;
   font-family: Arial;
 }
 
-/* line 149, ../../sass/screen.scss */
+/* line 178, ../../sass/screen.scss */
 .username.invisible {
   opacity: 0;
 }
 
-/* line 153, ../../sass/screen.scss */
+/* line 182, ../../sass/screen.scss */
 .username.invisible span {
   color: #A4A4A4;
 }
 
-/* line 157, ../../sass/screen.scss */
+/* line 186, ../../sass/screen.scss */
 .username span {
   color: #444;
   font-family: arial, sans-serif;
@@ -270,7 +303,7 @@ p {
   display: inline;
 }
 
-/* line 168, ../../sass/screen.scss */
+/* line 197, ../../sass/screen.scss */
 .username input {
   background: transparent;
   border: none;
@@ -282,32 +315,32 @@ p {
   text-align: center;
 }
 
-/* line 179, ../../sass/screen.scss */
+/* line 208, ../../sass/screen.scss */
 input[type='file'] {
   font-size: 12px;
 }
 
-/* line 183, ../../sass/screen.scss */
+/* line 212, ../../sass/screen.scss */
 p.bold, span.bold {
   font-weight: bold;
 }
 
-/* line 187, ../../sass/screen.scss */
+/* line 216, ../../sass/screen.scss */
 p.italic, span.italic {
   font-style: italic;
 }
 
-/* line 191, ../../sass/screen.scss */
+/* line 220, ../../sass/screen.scss */
 span.underline {
   text-decoration: underline;
 }
 
-/* line 195, ../../sass/screen.scss */
+/* line 224, ../../sass/screen.scss */
 span.verb {
   font-family: monospace;
 }
 
-/* line 199, ../../sass/screen.scss */
+/* line 228, ../../sass/screen.scss */
 #new-session {
   color: #7f7f7f;
   border: 2px solid #7f7f7f;
@@ -318,7 +351,7 @@ span.verb {
   letter-spacing: -1.2px;
 }
 
-/* line 209, ../../sass/screen.scss */
+/* line 238, ../../sass/screen.scss */
 #new-session:hover {
   border: 2px solid #4e4e4e;
   color: #4e4e4e;
@@ -326,18 +359,18 @@ span.verb {
   box-shadow: 0px 0px 16px #4e4e4e;
 }
 
-/* line 216, ../../sass/screen.scss */
+/* line 245, ../../sass/screen.scss */
 #new-session:active {
   border: 2px solid #a4a4a4;
   color: #a4a4a4;
 }
 
-/* line 221, ../../sass/screen.scss */
+/* line 250, ../../sass/screen.scss */
 #new-session {
   display: block;
 }
 
-/* line 225, ../../sass/screen.scss */
+/* line 254, ../../sass/screen.scss */
 #session-id {
   font-size: 13px;
   font-weight: bold;
@@ -345,17 +378,18 @@ span.verb {
   letter-spacing: -1px;
 }
 
-/* line 232, ../../sass/screen.scss */
+/* line 261, ../../sass/screen.scss */
 #session-container * {
   display: inline-block;
 }
 
-/* line 236, ../../sass/screen.scss */
+/* line 265, ../../sass/screen.scss */
 section {
   margin-top: 10px;
   padding-left: 50px;
+  display: none;
 }
-/* line 240, ../../sass/screen.scss */
+/* line 270, ../../sass/screen.scss */
 section h2 {
   color: #333;
   font-family: arial, sans-serif;
@@ -368,7 +402,7 @@ section h2 {
   margin-top: 50px;
   text-transform: uppercase;
 }
-/* line 248, ../../sass/screen.scss */
+/* line 278, ../../sass/screen.scss */
 section h3 {
   color: #333;
   font-family: arial, sans-serif;
@@ -381,7 +415,12 @@ section h3 {
   margin-bottom: 20px;
 }
 
-/* line 256, ../../sass/screen.scss */
+/* line 286, ../../sass/screen.scss */
+section.active {
+  display: block;
+}
+
+/* line 290, ../../sass/screen.scss */
 section > .details {
   padding: 10px;
   border: 1px solid #CFCFCF;
@@ -391,18 +430,18 @@ section > .details {
   margin-bottom: 10px;
 }
 
-/* line 265, ../../sass/screen.scss */
+/* line 299, ../../sass/screen.scss */
 section#future-work {
   padding-bottom: 25px;
 }
 
-/* line 269, ../../sass/screen.scss */
+/* line 303, ../../sass/screen.scss */
 a {
   color: #08C;
   text-decoration: none;
 }
 
-/* line 274, ../../sass/screen.scss */
+/* line 308, ../../sass/screen.scss */
 canvas {
   padding-top: 10px;
   padding-right: 10px;
@@ -410,17 +449,138 @@ canvas {
   -moz-box-reflect: below 5px -moz-linear-gradient(top, transparent, transparent 50%, rgba(255, 255, 255, 0.2));
 }
 
-/* line 281, ../../sass/screen.scss */
+/* line 315, ../../sass/screen.scss */
 .codecs {
   margin-left: 40px;
 }
 
-/* line 285, ../../sass/screen.scss */
+/* line 319, ../../sass/screen.scss */
 .codecs > li {
   list-style: disc;
 }
 
-/* line 289, ../../sass/screen.scss */
+/* line 323, ../../sass/screen.scss */
+.overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.898);
+  z-index: 1;
+  top: 0px;
+}
+
+/* line 332, ../../sass/screen.scss */
+.mc-feedback {
+  height: 285px !important;
+  z-index: 9999;
+  box-shadow: 0px 0px 10px whitesmoke;
+  -moz-box-shadow: 0px 0px 10px whitesmoke;
+  -webkit-box-shadow: 0px 0px 10px whitesmoke;
+}
+
+/* line 340, ../../sass/screen.scss */
+.mc-container {
+  color: #888;
+  font-weight: bold;
+  font-family: arial, sans-serif;
+  letter-spacing: -1px;
+  height: 100px;
+}
+
+/* line 348, ../../sass/screen.scss */
+.mc-container > p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: white;
+}
+
+/* line 354, ../../sass/screen.scss */
+.mc-container > textarea {
+  height: 100px;
+  width: 90%;
+  color: black;
+  overflow: hidden;
+  resize: none;
+  font-family: Arial;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+/* Buttons from:;
+ * http://www.red-team-design.com/wp-content/uploads/2011/09/awesome-css3-buttons.html 
+ */
+/* line 368, ../../sass/screen.scss */
+button.mc-send {
+  display: inline-block;
+  white-space: nowrap;
+  background-color: #ddd;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#cccccc));
+  background-image: -webkit-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
+  background-image: linear-gradient(top, #eeeeee, #cccccc);
+  border: 1px solid #777;
+  padding: 0 1.5em;
+  margin: 0.5em;
+  font: bold 1em/2em Arial, Helvetica;
+  text-decoration: none;
+  color: #333;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  -moz-border-radius: .2em;
+  -webkit-border-radius: .2em;
+  border-radius: .2em;
+  -moz-box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.8) inset, 0 1px 0 rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.8) inset, 0 1px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 1px 1px rgba(255, 255, 255, 0.8) inset, 0 1px 0 rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+/* line 394, ../../sass/screen.scss */
+button.mc-send:hover {
+  background-color: #eee;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#dddddd));
+  background-image: -webkit-linear-gradient(top, #fafafa, #dddddd);
+  background-image: -moz-linear-gradient(top, #fafafa, #dddddd);
+  background-image: -ms-linear-gradient(top, #fafafa, #dddddd);
+  background-image: -o-linear-gradient(top, #fafafa, #dddddd);
+  background-image: linear-gradient(top, #fafafa, #dddddd);
+}
+
+/* line 404, ../../sass/screen.scss */
+button.mc-send:active {
+  -moz-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3) inset;
+  -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3) inset;
+  box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3) inset;
+  position: relative;
+  top: 1px;
+}
+
+/* line 412, ../../sass/screen.scss */
+.button:focus {
+  outline: 0;
+  background: #fafafa;
+}
+
+/* line 417, ../../sass/screen.scss */
+.button:before {
+  background: #ccc;
+  background: rgba(0, 0, 0, 0.1);
+  float: left;
+  width: 1em;
+  text-align: center;
+  font-size: 1.5em;
+  margin: 0 1em 0 -1em;
+  padding: 0 .2em;
+  -moz-box-shadow: 1px 0 0 rgba(0, 0, 0, 0.5), 2px 0 0 rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: 1px 0 0 rgba(0, 0, 0, 0.5), 2px 0 0 rgba(255, 255, 255, 0.5);
+  box-shadow: 1px 0 0 rgba(0, 0, 0, 0.5), 2px 0 0 rgba(255, 255, 255, 0.5);
+  -moz-border-radius: .15em 0 0 .15em;
+  -webkit-border-radius: .15em 0 0 .15em;
+  border-radius: .15em 0 0 .15em;
+  pointer-events: none;
+}
+
+/* line 435, ../../sass/screen.scss */
 .mc-wrapper {
   left: -webkit-calc(50% - 15%) !important;
   top: -webkit-calc(50% - 15%) !important;
@@ -428,17 +588,17 @@ canvas {
   top: -moz-calc(50% - 15%) !important;
 }
 
-/* line 297, ../../sass/screen.scss */
+/* line 443, ../../sass/screen.scss */
 .mc-wrapper.hidden {
   left: 9999em !important;
 }
 
-/* line 301, ../../sass/screen.scss */
+/* line 447, ../../sass/screen.scss */
 .mc-minimize-button {
   display: none !important;
 }
 
-/* line 305, ../../sass/screen.scss */
+/* line 451, ../../sass/screen.scss */
 label {
   color: #888;
   font-size: 16px;
@@ -447,8 +607,10 @@ label {
   letter-spacing: -1px;
 }
 
-/* CSS3 Uniform Checkbox (Modified) */
-/* line 314, ../../sass/screen.scss */
+/** Uniform Checkbox (Modified) 
+  * Original at https://github.com/pixelmatrix/uniform/blob/master/css/uniform.default.css
+  */
+/* line 462, ../../sass/screen.scss */
 .checkbox {
   background-image: url(/images/sprite.png) !important;
   background-repeat: no-repeat;
@@ -461,26 +623,26 @@ label {
   margin: 0px;
 }
 
-/* line 326, ../../sass/screen.scss */
+/* line 474, ../../sass/screen.scss */
 .checkbox {
   background-position: 0px -260px;
   height: 19px;
   width: 19px;
 }
 
-/* line 333, ../../sass/screen.scss */
+/* line 481, ../../sass/screen.scss */
 .checkbox:active,
 .checkbox.active {
   background-position: -19px -260px;
 }
 
-/* line 338, ../../sass/screen.scss */
+/* line 486, ../../sass/screen.scss */
 .checkbox.focus,
 .checkbox:hover {
   background-position: -38px -260px;
 }
 
-/* line 345, ../../sass/screen.scss */
+/* line 493, ../../sass/screen.scss */
 .checkbox.focus:active,
 .checkbox:active:hover,
 .checkbox.active:hover,
@@ -488,24 +650,24 @@ label {
   background-position: -57px -260px;
 }
 
-/* line 349, ../../sass/screen.scss */
+/* line 497, ../../sass/screen.scss */
 .checkbox:checked {
   background-position: -76px -260px;
 }
 
-/* line 354, ../../sass/screen.scss */
+/* line 502, ../../sass/screen.scss */
 .checkbox:active:checked,
 .checkbox.active:checked {
   background-position: -95px -260px;
 }
 
-/* line 359, ../../sass/screen.scss */
+/* line 507, ../../sass/screen.scss */
 .checkbox.focus.checked,
 .checkbox.checked:hover {
   background-position: -114px -260px;
 }
 
-/* line 366, ../../sass/screen.scss */
+/* line 514, ../../sass/screen.scss */
 .checkbox.focus.checked:active,
 .checkbox:hover.checked:active,
 .checkbox.active:hover.checked,
@@ -513,28 +675,28 @@ label {
   background-position: -133px -260px;
 }
 
-/* line 372, ../../sass/screen.scss */
+/* line 520, ../../sass/screen.scss */
 .checkbox.disabled,
 .checkbox.disabled:active,
 .checkbox.disabled.active {
   background-position: -152px -260px;
 }
 
-/* line 378, ../../sass/screen.scss */
+/* line 526, ../../sass/screen.scss */
 .checkbox.disabled.checked,
 .checkbox.disabled.checked:active,
 .checkbox.disabled.active.checked {
   background-position: -171px -260px;
 }
 
-/* line 382, ../../sass/screen.scss */
+/* line 530, ../../sass/screen.scss */
 #partners {
   text-align: right;
   padding: 20px;
   border-top: 1px solid #CFCFCF;
 }
 
-/* line 388, ../../sass/screen.scss */
+/* line 536, ../../sass/screen.scss */
 #partners img {
   position: relative;
   height: 80px;

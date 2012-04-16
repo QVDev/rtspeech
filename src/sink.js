@@ -1,5 +1,6 @@
 define('sink', ['platform'], function (platform) {				
 	var output = new Audio(), moz = !!output.mozSetup	 // mozAudio
+	  , mediasection = document.getElementById("media")
 	  , ctx, fftworker, canvas, isActive = true 		 // Vis utils
 	  , webkit = !!window['webkitAudioContext']			 // Webkit
 	  //, context, source, audiobuffer = new Float32Array(320), bufferWrite = false	  
@@ -7,6 +8,10 @@ define('sink', ['platform'], function (platform) {
 
 	function isHidden() {
 		if (!isActive) {
+			return true;
+		}
+		
+		if (!mediasection.classList.contains("active")) {
 			return true;
 		}
 

@@ -22,6 +22,7 @@ body {
 	font-size: 13px;
 	line-height: 18px;
 	color: #333;
+	padding-bottom: 50px;
 }
 
 li {
@@ -63,6 +64,34 @@ header {
 		display: inline !important;
 	}
 
+}
+
+nav {
+	position: absolute;	
+	right: 10px;
+}
+
+nav > li {
+	background: rgba(3,3,3,0.8);
+	display: inline-block;
+	height: 40px;
+	width: 130px;
+	text-align: center;
+	line-height: 40px;
+}
+
+nav > li > a {	
+	color: #fff;
+	font-family: arial, sans-serif;	
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;	
+	font-size: 16px;
+	letter-spacing: -1px;	
+}
+
+nav > li > a:hover, a.active {
+	color: #08C;
 }
 
 .hidden {
@@ -234,8 +263,9 @@ span.verb {
 }
 
 section {
-	margin-top: 10px;
+	margin-top: 10px;	
 	padding-left: 50px;
+	display: none;
 	
 	h2 {
 		@include title-font;
@@ -251,6 +281,10 @@ section {
 		text-transform: uppercase;
 		margin-bottom: 20px;
 	}
+}
+
+section.active {
+	display: block;
 }
 
 section > .details {
@@ -286,6 +320,118 @@ canvas {
 	list-style: disc;
 }
 
+.overlay {
+	width: 100%; 
+	height: 100%; 
+	position: fixed; 
+	background-color: rgba(0, 0, 0, 0.898438); 
+	z-index: 1;
+	top: 0px;
+}
+
+.mc-feedback {
+	height: 285px !important;
+	z-index: 9999;
+	box-shadow: 0px 0px 10px whitesmoke;
+	-moz-box-shadow: 0px 0px 10px whitesmoke;
+	-webkit-box-shadow: 0px 0px 10px whitesmoke;
+}
+
+.mc-container {
+	color: #888;
+	font-weight: bold;
+	font-family: arial, sans-serif;
+	letter-spacing: -1px;
+	height: 100px;
+}
+
+.mc-container > p {
+	font-size: 16px;
+	margin-bottom: 20px;
+	color: white;	
+}
+
+.mc-container > textarea {
+	height: 100px;	
+	width: 90%;
+	color: black;
+		
+	overflow: hidden;
+	resize: none;
+	font-family: Arial;
+	border: 1px solid rgba(0, 0, 0, 0.8);
+}
+
+/* Buttons from:;
+ * http://www.red-team-design.com/wp-content/uploads/2011/09/awesome-css3-buttons.html 
+ */
+button.mc-send {        
+    display: inline-block;
+    white-space: nowrap;
+    background-color: #ddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eee), to(#ccc));
+    background-image: -webkit-linear-gradient(top, #eee, #ccc);
+    background-image: -moz-linear-gradient(top, #eee, #ccc);
+    background-image: -ms-linear-gradient(top, #eee, #ccc);
+    background-image: -o-linear-gradient(top, #eee, #ccc);
+    background-image: linear-gradient(top, #eee, #ccc);
+    border: 1px solid #777;
+    padding: 0 1.5em;
+    margin: 0.5em;
+    font: bold 1em/2em Arial, Helvetica;
+    text-decoration: none;
+    color: #333;
+    text-shadow: 0 1px 0 rgba(255,255,255,.8);
+    -moz-border-radius: .2em;
+    -webkit-border-radius: .2em;
+    border-radius: .2em;
+    -moz-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+    box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
+    cursor: pointer;
+}
+
+button.mc-send:hover {
+    background-color: #eee;        
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ddd));
+    background-image: -webkit-linear-gradient(top, #fafafa, #ddd);
+    background-image: -moz-linear-gradient(top, #fafafa, #ddd);
+    background-image: -ms-linear-gradient(top, #fafafa, #ddd);
+    background-image: -o-linear-gradient(top, #fafafa, #ddd);
+    background-image: linear-gradient(top, #fafafa, #ddd);
+}
+
+button.mc-send:active {
+    -moz-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+    -webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+    box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
+    position: relative;
+    top: 1px;
+}
+
+.button:focus {
+    outline: 0;
+    background: #fafafa;
+}    
+
+.button:before {
+    background: #ccc;
+    background: rgba(0,0,0,.1);
+    float: left;        
+    width: 1em;
+    text-align: center;
+    font-size: 1.5em;
+    margin: 0 1em 0 -1em;
+    padding: 0 .2em;
+    -moz-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+    -webkit-box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+    box-shadow: 1px 0 0 rgba(0,0,0,.5), 2px 0 0 rgba(255,255,255,.5);
+    -moz-border-radius: .15em 0 0 .15em;
+    -webkit-border-radius: .15em 0 0 .15em;
+    border-radius: .15em 0 0 .15em;     
+    pointer-events: none;		
+}
+
 .mc-wrapper {
 	left: -webkit-calc(50% - 15%) !important;
 	top: -webkit-calc(50% - 15%) !important;
@@ -310,7 +456,9 @@ label {
 	letter-spacing: -1px;	
 }
 
-/* CSS3 Uniform Checkbox (Modified) */
+/** Uniform Checkbox (Modified) 
+  * Original at https://github.com/pixelmatrix/uniform/blob/master/css/uniform.default.css
+  */
 .checkbox {
   background-image: url(/images/sprite.png) !important;
   background-repeat: no-repeat;

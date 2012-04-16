@@ -13,7 +13,7 @@
       		<link href="/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
   		<![endif]-->
 
-  		<script src="js/lib/modernizr.min.js"></script>
+  		<script src="js/lib/modernizr.min.js"></script>  		
   		<script src="js/lib/modernizr-tests.js"></script> 
 	</head>
 
@@ -22,6 +22,12 @@
 			<h1 class="title">Real-time Speech encoding</h1>
 			<span class="toggle-media-capture hidden">[show]</span>
 		</header>
+
+		<nav>
+			<li><a href="#media">Media</a></li>
+			<li><a href="#how-to">How it works</a></li>
+			<li><a href="#future-work">About</a></li>
+		</nav>
 				
 		<section id="media">
 			<canvas id="loopback" width="720" height="240" style="display: none"></canvas>
@@ -93,6 +99,11 @@
 			</div>
 		</section>
 
+		<section id="disclaimer">
+			<h2>Disclaimer</h1>
+			<p class="text">During the audio stream we have gathered performance metrics. We collect transport and codec metrics such as encode/decode times, packet size, rtt, etc. The location we ask you to provide is important to assess the codec performance with the estimated latency of your connection.</p>
+		</section>
+
 		<section id="support">
 			<h2 class="not_supported support-title">Browser Compatibility</h1>
 			<ul class="features">
@@ -107,7 +118,7 @@
 
 			<p class="text">Tested on <span class="bold">Chrome 17+</span>, <span class="bold">Firefox 11+</span>, <span class="bold">Firefox Mobile Aurora </span> (only playback).</p>
 
-			<p class="text">On mobile, it is only audible with the <span class="underline">G711</span> codec. Speex is too heavy on the CPU, causing too much breaks on the audio.</p>			
+			<p class="text">On mobile, it is only audible with the <span class="underline">G711</span> codec. Speex is too heavy on the CPU, causing too much interruptions of the audio.</p>			
 			
 			<p class="text">The tested device was a Samsung Galaxy S (Android 2.3.7). Other devices may perform better.</p>
 			
@@ -116,33 +127,27 @@
 			</p>
 		</section>
 
-
-		<section id="disclaimer">
-			<h2>Disclaimer</h1>
-			<p class="text">During the audio stream we make performance analysis. We collect transport and codec data such as encode/decode times, packet size, rtt, etc. The location we ask you to provide is important to assert the codec performance with the latency of your connection.</p>
-		</section>
-
 		<section id="how-to">
 			<h2>How it works?</h1>
 			
 			<p class="text">
-			This demo is somewhat similar to chat roulette, but without video. Hitting the "new session" button will start the voice chat. A microphone capture dialog will be prompted for you to send the audio to your assigned peer. Remember you will be talking with an unknown person. Since this is a simple demonstration of voice codecs, we wanted to make it simple for developers to test this.
+			This demo is somewhat similar to the popular chat roulette application, but without video. Hitting the "new session" button will start a voice chat. A microphone capture dialog will prompt you access to send the audio to your assigned peer. Remember you will be talking with an unknown person. Since this is a simple demonstration of voice codecs, we wanted to make it simple for anyone to test this.
 			</p>
 
 			<p class="text">
-			The main focus of this app goes to the implementation of the voice codecs Speex and G711. 
+			The main focus of this app goes to the implementation of the voice codecs Speex, AMR and G711. 
 			</p>
 			
 			<p class="text">
-			While G711 (both PCMU and PCMA) was implemented from scratch, Speex was ported using <a href="www.emscripten.org/">Emscripten</a> tool due to its high complexity. We have only "transpiled" the main core of the codec (<span class="bold">libspeex</span> and libspeexdsp, version 1.2-RC1).
+			While G711 (both PCMU and PCMA) was implemented from scratch, Speex and AMR was ported using <a href="www.emscripten.org/">Emscripten</a> tool due to its high complexity. We have only compiled the main core of the codec (<span class="bold">libspeex</span> and libspeexdsp, version 1.2-RC1; <span class="bold">opencore-amr</span>, version 0.1.3).  
 			</p>
 
 			<p class="text">
-			A wrapper was build to interact with emscripten generated code, being also responsible for the OGG format parsing and buffers managment. All of this through a simple API for audio encoding. For now, only basic settings can be changed in the Speex codec, such as quality and complexity. In the future, we will give support to its best features which includes echo cancellation and voice activity detection.
+			A wrapper was build to interact with emscripten generated code, also responsible for the OGG format parsing and buffers managment. All of this through a simple API for audio encoding. For now, only basic settings can be changed in the Speex codec, such as quality and complexity, or mode in the AMR case. In the future, we will give support to other features such as echo cancellation and voice activity detection (VAD).
 			</p>
 
 			<p class="text">
-			We tested these implementations on desktop and mobile platforms. Apparently, Firefox seems to perform better on the audio processing/playback. Chrome needs additional processing on playback due to its already known <a href="http://code.google.com/p/chromium/issues/detail?id=73062">resampling problem</a>.
+			We have tested these implementations on desktop and mobile platforms. Apparently, Firefox seems to perform better on the audio processing/playback. Chrome needs additional processing on playback due to its already known <a href="http://code.google.com/p/chromium/issues/detail?id=73062">sampling problem</a>.
 			</p>
 		</section>
 
@@ -162,23 +167,33 @@
 			<h2>Troubleshooting</h1>
 			<p class="text bold">Cases where the sound can be sloppy:</p>
 			<p class="text italic">
-			When the Media Capture dialog is hidden, Flash will send too much samples to the capture callback, instead of the regular value that is expected. In this case you might want to leave the dialog open. This is a bug we've have found most recently. It only happens when Flash is not "visible".
+			Flash will send too much samples to the capture callback, instead of the regular value that is expected. It only happens when the Flash object is not "visible".
 			</p>
 
 			<p class="text italic">
-			The media relay is located in Aveiro, Portugal. Depending on your location, additional delay may be causing the breaks in the sound. If you are interested, you might want try the demo in your computer along with some friends.
+			Two media relays are located in Aveiro (Portugal) and France. Depending on your location, additional delay may be causing the interruptions in the sound. If you are interested, you can download the <a href='https://github.com/jpemartins/rtspeech'>source</a> and try.
 			</p>
+		</section>
+		
+		<section id="authors">
+			<h2>Authors</h1>
+			<p class="text"><a href="https://atnog.av.it.pt/members/jmartins">João Martins</a>, <a href="http://atnog.av.it.pt/~dgomes">Diogo Gomes</a>, <a href="http://atnog.av.it.pt/members/ruilaa">Rui L. Aguiar</a></p>
+		</section>
+
+		<section id="acknowledgments">
+			<h2>Acknowledgments</h1>
+			<p class="text">We would like to thank <a href="http://atnog.av.it.pt/~jpbarraca/">João Paulo Barraca</a> for its significant help in the audio quality tests and benchmark. Also, <a href="http://atnog.av.it.pt/members/rportugal">Ricardo Portugal</a> and <a href="http://atnog.av.it.pt/members/cguimaraes">Carlos Guimarães</a> for their help in the preliminary tests.</p>
 		</section>
 
 		<section id="future-work">
 			<h2>Future work</h1>
 			
 			<p class="text">
-			This <a href="https://github.com/jpemartins/rtspeech">demo</a> is an example of a voice chat-roulette with codecs, audio playback and stream enterily in JavaScript. The only part that isn't JavaScript is the microphone capture.
+			This <a href="https://github.com/jpemartins/rtspeech">demo</a> is an example of a voice chat-roulette with codecs, audio playback and stream entirely in JavaScript. The only part that isn't JavaScript is the microphone capture.
 			</p>
 
 			<p class="text">
-			As <a href="http://robert.ocallahan.org/2012/01/mediastreams-processing-demos.html">WebRTC</a> is <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/webrtc-integration.html">starting</a> to <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/streams/StreamProcessing.html">appear</a>, microphone samples access will eventually be granted to developers to enable speech-related applications. Also, with the ongoing work on <span class="verb">PeerConnection</span> API, in a near future it should be possible to make this demo into a P2P solution (UDP) instead of a WebSocket-based (TCP).
+			As WebRTC development reaches stable browser versions, <a href="http://robert.ocallahan.org/2012/01/mediastreams-processing-demos.html">microphone</a> samples <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/streams/StreamProcessing.html">access</a>, will eventually be <a href="https://dvcs.w3.org/hg/audio/raw-file/tip/webaudio/webrtc-integration.html">granted</a> to developers to enable speech-related applications. Also, with the ongoing work on the <a href="http://tools.ietf.org/html/draft-jesup-rtcweb-data-protocol-00">data channel</a> of the <span class="verb">PeerConnection</span> API, in a near future it should be possible to make this demo over a P2P solution (UDP) instead of a WebSocket-based (TCP).
 			</p>
 
 			<p class="text">
@@ -197,7 +212,7 @@
 			</p>
 
 			<p class="text">
-			We hope to make our contribution with <a href="https://github.com/jpemartins/g711.js">G711</a> and <a href="https://github.com/jpemartins/speex.js">Speex</a> (both encoders and decoders), which has special importance in telephony and speech-related scenarios. In the near future we intend to bring more of these audio (telephony) codecs. We will update this demo, as we port more codecs. 
+			We hope to make our contribution with <a href="https://github.com/jpemartins/g711.js">G711</a>, <a href="https://github.com/jpemartins/speex.js">Speex</a> and <a href="https://github.com/jpemartins/amr.js">AMR-NB</a> (both encoders and decoders), which has special importance in telephony and voice-related applications. In the near future we intend to bring more of these audio (voice) codecs. We will update this demo, as we port more codecs. 
 			</p>
 
 		</section>
@@ -216,32 +231,14 @@
 		  , timeout: 2000 
 		}
 		</script>		
-	
-		<!-- Libraries
 		
-		<script src="/js/lib/swfobject.js"></script>
-		<script src="/js/lib/pcmdata.js"></script>
-		<script src="/js/lib/mediacapture.js"></script>
-		<script src="/js/lib/bitstring.min.js"></script>
-		<script src="/js/polyfills/xaudio.js"></script>
- 		
- 		-->				
-		
+		<!-- Dependencies -->	
 		<script src="/dist/deps.min.js"></script>
 		
-		<!-- Codecs 
-
-		<script src="/dist/speex.min.js"></script>
-		<script src="/dist/amrnb.min.js"></script>
-		<script src="/dist/g711.js"></script>
-		
-		-->
-
 		<!-- Codecs Bundle -->
 		<script src="/dist/bundle.min.js"></script>
 		
-		
-		<!-- App Main -->
+		<!-- App Bootstrap -->
 		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
 	</body>
 </html>

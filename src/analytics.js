@@ -22,8 +22,6 @@ define('analytics', ['stream'], function (Stream) {
 	function Analytics(options) {
 		options = options || {};
 
-		//this.ws = new WebSocket("ws://"+location.hostname+":8080/");				
-
 		this.measure_interval = options.measure_interval || 5000;
 		this.collect_interval = options.collect_interval || 6000;
 
@@ -151,6 +149,11 @@ define('analytics', ['stream'], function (Stream) {
 	Analytics.prototype.stop = function () {
 		!!this.collect_timer && clearInterval(this.collect_timer);
 		!!this.measure_timer && clearInterval(this.measure_timer);
+	}
+
+	Analytics.prototype.feedback = function (userdata) {
+		this.ws.send(JSON.stringify( { feedback: userdata } ));
+		this.ws.close();
 	}
 
 	return new Analytics();

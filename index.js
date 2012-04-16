@@ -15,16 +15,7 @@ var app = express.createServer()
 
 app.use(gzip.gzip());
 app.use(express.static(__dirname+"/public"));
-//app.use(express.static(__dirname+"/src"));
-
-app.post('/session', function (req, res) {
-	var uuid = "";// relay.newSession();
-
-	res.header('Content-Type', "application/json");
-	res.send(JSON.stringify({
-		uuid: uuid
-	}));
-});
+app.use(express.static(__dirname+"/src"));
 
 app.listen(argv.port, function() {
 	console.log((new Date()) + " Server is listening on port "+argv.port);

@@ -7,6 +7,10 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		return document.querySelector(selector);
 	});
 
+	function forEach(list, fn) {
+		Array.prototype.forEach.call(list, fn);
+	}
+
 	var features = ['webaudio', 'audiodata', 'websocketsbinary', 'webworkers', 'filereader', 'performance']
 	  , bonus = ['usertiming']
 	  , supported = true;
@@ -27,49 +31,113 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	  , codecSelector = $$("#select-codec")
 	  , codecsAvailable = codecSelector.options
 	  , codecSelected = codecSelector.selectedIndex
-	  , codec = codecSelector.options[codecSelected].getAttribute("name");
+	  , codec = codecSelector.options[codecSelected].getAttribute("name")
 
-	function urlSessionId() {
-		var hash = location.hash[0] == "#" ? location.hash.substring(1) : false;
-		if (!hash) {
-			return false;
+	  , nav_items = $("nav li a")
+	  , tabs = $("section")
+
+	  , activeTabClass = "active";
+
+	function hideAllTabs() {
+		forEach( $("section.active"), function (section) {
+			section.classList.remove(activeTabClass);
+		});
+	}
+
+	function showTab(id) {
+		$$("section"+id).classList.add(activeTabClass);
+
+		if (id == "#media") {
+			showTab("#support");
+			showTab("#disclaimer");
+		} else if (id == "#how-to") {
+			showTab("#tools");
+			showTab("#troubleshooting");
+		} else if (id == "#future-work") {
+			showTab("#authors");
+			showTab("#acknowledgments");
+			showTab("#partners");
 		}
-
-		return hash.split("/")[2];
 	}
 
-	function requestSessionKey(fn) {
-		HTTP.post('/session', {	type: 'json' }, null, function (data) {
-		  	fn(data.uuid);
-		});		
+	function navActive(hash) {
+		forEach( $("nav li a"), function (a) {
+			a.classList.remove(activeTabClass);
+		});
+
+		$$("nav li a[href='"+hash+"']").classList.add(activeTabClass);
 	}
 
-	function renderSessionURL(url) {
-		sessionContainerSct.innerHTML += 
-			"<span id='session-id'>Copy this <a href='"+url+"'>url</a> to another browser</span>";
-	}
-
+	// Show Feedback Dialog
 	function feedbackDialog() {
+		var dialog = document.createElement("div")
+		  , overlay = document.createElement("div")
+		  , qa = "<div class='mc-container'>"+		  		
+		  		 "<p>Your feedback on the voice chat:</p>"+
+		  			 "<input type='radio' name='feedback' value='noear' /><span>I couldn't hear anything</span>"+
+		  			 "<input type='radio' name='feedback' value='interrupt' /><span>Too many interrupts</span>"+
+		  			 "<input type='radio' name='feedback' value='good' /><span>Good sound quality</span>"+
+		  			 "<input type='radio' name='feedback' value='awesome' /><span>Awesome!</span>"+
+			  		 "<p>Comment:</p>"+
+		  		 	 "<textarea id='comment'></textarea>"+
+		  		 	 "<button class='mc-send'>Send Feeback</button>"+
+		  		 "</div>";
 		
-	}
+		dialog.className = "mc-wrapper mc-feedback";
+		dialog.innerHTML = qa;
+		dialog.style.visibility = "visible";
+		dialog.style.width = "400px";
 
-	// Only when Media Capture UI is created
-	function bindMCCloseBtn() {
-		var stopBtn = $$(".mc-wrapper .mc-menu .mc-stop");
+		overlay.className = "overlay";
 
-		!!stopBtn && stopBtn.addEventListener("click", function (evt) {			
-			stream.close();
-			feedbackDialog();
+		dialog.getElementsByClassName("mc-send")[0].addEventListener('click', function (evt) {
+			var flist = document.getElementsByName('feedback')
+			  , comment = document.getElementById("comment").value
+			  , user;
+
+			for(var i=-1, l=flist.length; ++i<l;) {
+				if (flist[i].checked) {
+					user = flist[i].value;
+					break;
+				}
+			}
+
+			analytics.feedback({
+			  	"comment": comment
+			  , "user": user
+			});
+
+			document.body.removeChild(overlay);
+			document.body.removeChild(dialog);
 		}, false);
+
+		document.body.appendChild(overlay);
+		document.body.appendChild(dialog);
+	}
+
+	// Closes stream and launches feedback Dialog
+	function close() {
+		stream.close();
+		if (stream.active) {
+			feedbackDialog();
+		}
 	}
 
 	// Only when Media Capture UI is created
-	function bindMCMinimizeBtn() {
-		var minimizeBtn = $$(".mc-wrapper .mc-controls .mc-minimize-button");
+	function bindMCUI() {
+		var stopBtn = $$(".mc-wrapper .mc-menu .mc-stop");
+		!!stopBtn && stopBtn.addEventListener("click", function (evt) {
+			close();
+		}, false);
 
-		!!minimizeBtn && minimizeBtn.addEventListener("click", function (evt) {
-			evt.target.parentNode.parentNode.classList.toggle("hidden");
-			toggleMC.classList.toggle("hidden");
+		var captureBtn = $$(".mc-wrapper .mc-menu .mc-capture");
+		!!captureBtn && captureBtn.addEventListener("click", function (evt) {			
+			stream.active = true;
+		}, false);
+
+		var closeBtn = $$(".mc-wrapper .mc-controls .mc-close-button");
+		!!closeBtn && closeBtn.addEventListener("click", function (evt) {
+			close();
 		}, false);
 	}
 
@@ -110,7 +178,7 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	function bindMC () {
 		setTimeout(function () {
 			//bindMCMinimizeBtn();
-			bindMCCloseBtn();
+			bindMCUI();
 		}, 2500);
 	}
 
@@ -184,6 +252,32 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		audioElement.load();
 	}
 
+	// Nav Configuration
+	forEach(nav_items, function (item) {
+		item.addEventListener("click", function (evt) {
+			// Switch active section
+			var active = evt.target.hash;
+
+			hideAllTabs();
+			showTab(active);
+			navActive(active);
+
+			evt.preventDefault();
+			return false;
+		}, false);
+	});
+
+	navActive("#media");
+	showTab("#media");
+	audioLoad();
+
+	// File decoding
+	file.addEventListener("change", function (evt) {
+		File.read(evt.target.files[0], 'binarystring', function (result) {
+			Speex.util.play(oggRead(result));
+		});
+	}, false);
+
 	if (!featureSupport()) {
 		return audioLoad();
 	}
@@ -198,13 +292,6 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	toggleMC.addEventListener("click", function (evt) {
 		$$(".mc-wrapper").classList.toggle("hidden");
 		toggleMC.classList.toggle("hidden");		
-	}, false);
-
-	// File decoding
-	file.addEventListener("change", function (evt) {
-		File.read(evt.target.files[0], 'binarystring', function (result) {
-			Speex.util.play(oggRead(result));
-		});
 	}, false);
 
 	// Codec selection
@@ -226,8 +313,6 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		
 		newSessionBtn.parentNode.removeChild(newSessionBtn);
 	}, false);
-
-	audioLoad();
 	
 	window.analytics = Analytics;
 });

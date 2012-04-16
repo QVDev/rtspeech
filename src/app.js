@@ -87,6 +87,8 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		dialog.innerHTML = qa;
 		dialog.style.visibility = "visible";
 		dialog.style.width = "400px";
+        dialog.style.left = (window.innerWidth / 2 - 400 / 2).toString() + "px";
+        dialog.style.top = (window.innerHeight / 2 - 300 / 2).toString() + "px";
 
 		overlay.className = "overlay";
 

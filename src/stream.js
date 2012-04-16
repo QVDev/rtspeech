@@ -31,6 +31,7 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 		this.btype = 'arraybuffer';
 		this.DataView = this.codec_name == "speex" ? Uint8Array : Int8Array;
 
+		this.receiving = false;
 		this.active = false;
 		this.loaded = false;				
 		this.closed = false;
@@ -78,6 +79,10 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 
 	Stream.prototype.onmessage = function (message) {				
 		if (message.data.constructor === ArrayBuffer) {
+			if (!this.receiving) {
+				this.receiving = true;
+				window.microphone.showText("Receiving");
+			}
 			this.onbinarymessage(new Uint8Array(message.data));
 		} else if (message.data.constructor === String) {						
 			var isParam = this.onparam(message.data);			

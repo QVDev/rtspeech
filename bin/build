@@ -30,6 +30,7 @@ var fs = require('fs')
       , 'lib/pcmdata.js'
       , 'lib/swfobject.js'
       , 'polyfills/xaudio.js'
+      , 'polyfills/usertiming.js'
   ];
 
 outFile.on('open', function (fd) {

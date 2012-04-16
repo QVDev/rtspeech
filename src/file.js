@@ -1,4 +1,12 @@
 define('file', function (require) {
+
+	if (!Modernizr.filereader) {
+		return {
+			read: function () {}
+		  , select: function () {}
+		}	
+	}
+
     var reader = new FileReader()
       , Builder = window["WebKitBlobBuilder"] || window["MozBlobBuilder"] || window["BlobBuilder"];
 

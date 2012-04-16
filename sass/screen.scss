@@ -94,6 +94,12 @@ nav > li > a:hover, a.active {
 	color: #08C;
 }
 
+hr {
+	position: absolute;
+	width: 100%;
+	color: #cfcfcf;
+}
+
 .hidden {
 	display: none !important;
 }
@@ -111,7 +117,7 @@ canvas.invisible {
 }
 
 p {
-	margin-top: 10px;
+	margin-top: 20px;
 }
 #support > .support-title.not_supported::after {
 	content: "(Not Supported)";
@@ -229,7 +235,7 @@ span.verb {
 	color: #7f7f7f;
 	border: 2px solid #7f7f7f;
 	background: transparent;
-	font-size: 16px;
+	font-size: 24px;
 	font-weight: bold;
 	font-family: arial, sans-serif;
 	letter-spacing: -1.2px;
@@ -256,6 +262,10 @@ span.verb {
 	font-weight: bold;
 	font-family: arial, sans-serif;
 	letter-spacing: -1px;
+}
+
+#session-container {
+	margin-bottom: 10px	
 }
 
 #session-container * {
@@ -330,7 +340,7 @@ canvas {
 }
 
 .mc-feedback {
-	height: 285px !important;
+	height: 300px !important;
 	z-index: 9999;
 	box-shadow: 0px 0px 10px whitesmoke;
 	-moz-box-shadow: 0px 0px 10px whitesmoke;

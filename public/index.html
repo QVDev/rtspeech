@@ -45,14 +45,19 @@
 		<section id="media">
 			<canvas id="loopback" width="720" height="240" style="display: none"></canvas>
 			<canvas id="remote" width="720" height="240"></canvas>
-
-			<p class="username hidden">
-				<span>Username:</span>
-				<input name="username" type="text" />
-			</p>
 			
 			<div id="file-decoding" class="details">
-				<h3 class="summary">File Decoding (Speex)</h2>
+				<h3 class="summary">File Decoding</h2>
+
+				<p class="text">	
+					<span> The following samples can be used in file input below:</span>
+				</p>
+
+				<p class="samples">
+					<a href="/samples/female.ogg">Speex</a>
+					<a href="/samples/female.amr">AMR</a>					
+				</p>
+
 
 				<p>
 					<label for="sample">
@@ -60,6 +65,11 @@
 						<input name="sample" type="file" accept="audio/ogg" />
 					</label>
 				</p>
+
+				<p class="text">	
+					<span> Decodes the file and convert it to a WAV Data URI if the browser lacks codec support:</span>
+				</p>
+
 
 				<p>
 					<label for="audio-element">
@@ -71,7 +81,12 @@
 			</div>
 
 			<div id="session-options" class="details hidden">
-				<h3 class="summary">Voice chat options</h2>
+				<h3 class="summary">Voice chat</h2>
+				
+				<div id="session-container">
+					<button id="new-session" class="">Start</button>
+					<span class="italic">(A dialog will prompt microphone access. You also need to initiate your voice capture by clicking in the "Capture" button.)</span>
+				</div>
 				<p>
 					<label for="visualization">
 						<span>Enable Visualization:</span>
@@ -106,10 +121,6 @@
 					</label>
 				</p>
 			</div>
-
-			<div id="session-container">
-				<button id="new-session" class="hidden">new session</button>
-			</div>
 		</section>
 
 		<section id="disclaimer">
@@ -117,7 +128,7 @@
 			<p class="text">During the audio stream we gather performance metrics. We collect transport and codec metrics such as encode/decode times, packet size, rtt, etc. The location we ask you to provide is important to assess the codec performance with the estimated latency of your connection.</p>
 		</section>
 
-		<section id="support">
+		<section id="support" class="active">
 			<h2 class="not_supported support-title">Browser Compatibility</h1>
 			<ul class="features">
 				<li class="audiodata webaudio">Low Level Audio APIs</li>
@@ -141,7 +152,7 @@
 		</section>
 
 		<section id="how-to">
-			<h2>How it works?</h1>
+			<h2>How does it work?</h1>
 			
 			<p class="text">
 			This demo is somewhat similar to the popular chat roulette application, but without video. Hitting the "new session" button will start a voice chat. A microphone capture dialog will prompt you access to send the audio to your assigned peer. Remember you will be talking with an unknown person. Since this is a simple demonstration of voice codecs, we wanted to make it simple for anyone to test this.
@@ -231,9 +242,9 @@
 		</section>
 
 		<section id="partners">
-			<img src="/images/it.png" />
-			<img src="/images/ua.png" />
-			<img src="/images/atnog.png" />
+			<a href="http://atnog.av.it.pt"><img src="/images/atnog.png" /></a>
+			<a href="http://www.it.pt"><img src="/images/it.png" /></a>
+			<a href="http://www.ua.pt"><img src="/images/ua.png" /></a>
 		</section>		
 
 		<!-- Media Capture UI settings  -->
@@ -252,6 +263,6 @@
 		<script src="/dist/bundle.min.js"></script>
 		
 		<!-- App Bootstrap -->
-		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
+		<script data-main="/app.js" src="/js/lib/require.js"></script>
 	</body>
 </html>

@@ -5,6 +5,10 @@
 	var navStart = performance.timing.navigationStart
 	  , fetchStart = performance.timing.fetchStart;
 
+	if (performance.mark) {
+		return;
+	}
+	
 	/* DOMHighResTimeStamp is the relative time to navigationStart
 	 * The precision of the timer is down to a tenth of a milisecond (double value)
      */

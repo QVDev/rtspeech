@@ -171,11 +171,18 @@ nav > li > a:hover, a.active {
 }
 
 /* line 97, ../../sass/screen.scss */
+hr {
+  position: absolute;
+  width: 100%;
+  color: #cfcfcf;
+}
+
+/* line 103, ../../sass/screen.scss */
 .hidden {
   display: none !important;
 }
 
-/* line 101, ../../sass/screen.scss */
+/* line 107, ../../sass/screen.scss */
 canvas {
   opacity: 1;
   -moz-transition-property: opacity;
@@ -192,28 +199,28 @@ canvas {
   transition-timing-function: linear;
 }
 
-/* line 109, ../../sass/screen.scss */
+/* line 115, ../../sass/screen.scss */
 canvas.invisible {
   opacity: 0;
 }
 
-/* line 113, ../../sass/screen.scss */
+/* line 119, ../../sass/screen.scss */
 p {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-/* line 116, ../../sass/screen.scss */
+/* line 122, ../../sass/screen.scss */
 #support > .support-title.not_supported::after {
   content: "(Not Supported)";
   color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 120, ../../sass/screen.scss */
+/* line 126, ../../sass/screen.scss */
 .features {
   margin-top: 10px;
 }
 
-/* line 124, ../../sass/screen.scss */
+/* line 130, ../../sass/screen.scss */
 .features li {
   display: inline;
   text-align: center;
@@ -236,22 +243,22 @@ p {
   background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 146, ../../sass/screen.scss */
+/* line 152, ../../sass/screen.scss */
 .features > li.yes {
   background-color: rgba(120, 184, 20, 0.9);
 }
 
-/* line 150, ../../sass/screen.scss */
+/* line 156, ../../sass/screen.scss */
 .features > li.no {
   background-color: rgba(184, 51, 20, 0.9);
 }
 
-/* line 154, ../../sass/screen.scss */
+/* line 160, ../../sass/screen.scss */
 #audio-element {
   display: block;
 }
 
-/* line 158, ../../sass/screen.scss */
+/* line 164, ../../sass/screen.scss */
 .username {
   border-radius: 10px;
   padding: 10px;
@@ -274,24 +281,24 @@ p {
   transition-timing-function: linear;
 }
 
-/* line 172, ../../sass/screen.scss */
+/* line 178, ../../sass/screen.scss */
 .text {
   padding-top: 10px;
   font-size: 14px;
   font-family: Arial;
 }
 
-/* line 178, ../../sass/screen.scss */
+/* line 184, ../../sass/screen.scss */
 .username.invisible {
   opacity: 0;
 }
 
-/* line 182, ../../sass/screen.scss */
+/* line 188, ../../sass/screen.scss */
 .username.invisible span {
   color: #A4A4A4;
 }
 
-/* line 186, ../../sass/screen.scss */
+/* line 192, ../../sass/screen.scss */
 .username span {
   color: #444;
   font-family: arial, sans-serif;
@@ -303,7 +310,7 @@ p {
   display: inline;
 }
 
-/* line 197, ../../sass/screen.scss */
+/* line 203, ../../sass/screen.scss */
 .username input {
   background: transparent;
   border: none;
@@ -315,43 +322,43 @@ p {
   text-align: center;
 }
 
-/* line 208, ../../sass/screen.scss */
+/* line 214, ../../sass/screen.scss */
 input[type='file'] {
   font-size: 12px;
 }
 
-/* line 212, ../../sass/screen.scss */
+/* line 218, ../../sass/screen.scss */
 p.bold, span.bold {
   font-weight: bold;
 }
 
-/* line 216, ../../sass/screen.scss */
+/* line 222, ../../sass/screen.scss */
 p.italic, span.italic {
   font-style: italic;
 }
 
-/* line 220, ../../sass/screen.scss */
+/* line 226, ../../sass/screen.scss */
 span.underline {
   text-decoration: underline;
 }
 
-/* line 224, ../../sass/screen.scss */
+/* line 230, ../../sass/screen.scss */
 span.verb {
   font-family: monospace;
 }
 
-/* line 228, ../../sass/screen.scss */
+/* line 234, ../../sass/screen.scss */
 #new-session {
   color: #7f7f7f;
   border: 2px solid #7f7f7f;
   background: transparent;
-  font-size: 16px;
+  font-size: 24px;
   font-weight: bold;
   font-family: arial, sans-serif;
   letter-spacing: -1.2px;
 }
 
-/* line 238, ../../sass/screen.scss */
+/* line 244, ../../sass/screen.scss */
 #new-session:hover {
   border: 2px solid #4e4e4e;
   color: #4e4e4e;
@@ -359,18 +366,18 @@ span.verb {
   box-shadow: 0px 0px 16px #4e4e4e;
 }
 
-/* line 245, ../../sass/screen.scss */
+/* line 251, ../../sass/screen.scss */
 #new-session:active {
   border: 2px solid #a4a4a4;
   color: #a4a4a4;
 }
 
-/* line 250, ../../sass/screen.scss */
+/* line 256, ../../sass/screen.scss */
 #new-session {
   display: block;
 }
 
-/* line 254, ../../sass/screen.scss */
+/* line 260, ../../sass/screen.scss */
 #session-id {
   font-size: 13px;
   font-weight: bold;
@@ -378,18 +385,23 @@ span.verb {
   letter-spacing: -1px;
 }
 
-/* line 261, ../../sass/screen.scss */
+/* line 267, ../../sass/screen.scss */
+#session-container {
+  margin-bottom: 10px;
+}
+
+/* line 271, ../../sass/screen.scss */
 #session-container * {
   display: inline-block;
 }
 
-/* line 265, ../../sass/screen.scss */
+/* line 275, ../../sass/screen.scss */
 section {
   margin-top: 10px;
   padding-left: 50px;
   display: none;
 }
-/* line 270, ../../sass/screen.scss */
+/* line 280, ../../sass/screen.scss */
 section h2 {
   color: #333;
   font-family: arial, sans-serif;
@@ -402,7 +414,7 @@ section h2 {
   margin-top: 50px;
   text-transform: uppercase;
 }
-/* line 278, ../../sass/screen.scss */
+/* line 288, ../../sass/screen.scss */
 section h3 {
   color: #333;
   font-family: arial, sans-serif;
@@ -415,12 +427,12 @@ section h3 {
   margin-bottom: 20px;
 }
 
-/* line 286, ../../sass/screen.scss */
+/* line 296, ../../sass/screen.scss */
 section.active {
   display: block;
 }
 
-/* line 290, ../../sass/screen.scss */
+/* line 300, ../../sass/screen.scss */
 section > .details {
   padding: 10px;
   border: 1px solid #CFCFCF;
@@ -430,18 +442,18 @@ section > .details {
   margin-bottom: 10px;
 }
 
-/* line 299, ../../sass/screen.scss */
+/* line 309, ../../sass/screen.scss */
 section#future-work {
   padding-bottom: 25px;
 }
 
-/* line 303, ../../sass/screen.scss */
+/* line 313, ../../sass/screen.scss */
 a {
   color: #08C;
   text-decoration: none;
 }
 
-/* line 308, ../../sass/screen.scss */
+/* line 318, ../../sass/screen.scss */
 canvas {
   padding-top: 10px;
   padding-right: 10px;
@@ -449,17 +461,17 @@ canvas {
   -moz-box-reflect: below 5px -moz-linear-gradient(top, transparent, transparent 50%, rgba(255, 255, 255, 0.2));
 }
 
-/* line 315, ../../sass/screen.scss */
+/* line 325, ../../sass/screen.scss */
 .codecs {
   margin-left: 40px;
 }
 
-/* line 319, ../../sass/screen.scss */
+/* line 329, ../../sass/screen.scss */
 .codecs > li {
   list-style: disc;
 }
 
-/* line 323, ../../sass/screen.scss */
+/* line 333, ../../sass/screen.scss */
 .overlay {
   width: 100%;
   height: 100%;
@@ -469,16 +481,16 @@ canvas {
   top: 0px;
 }
 
-/* line 332, ../../sass/screen.scss */
+/* line 342, ../../sass/screen.scss */
 .mc-feedback {
-  height: 285px !important;
+  height: 300px !important;
   z-index: 9999;
   box-shadow: 0px 0px 10px whitesmoke;
   -moz-box-shadow: 0px 0px 10px whitesmoke;
   -webkit-box-shadow: 0px 0px 10px whitesmoke;
 }
 
-/* line 340, ../../sass/screen.scss */
+/* line 350, ../../sass/screen.scss */
 .mc-container {
   color: #888;
   font-weight: bold;
@@ -487,14 +499,14 @@ canvas {
   height: 100px;
 }
 
-/* line 348, ../../sass/screen.scss */
+/* line 358, ../../sass/screen.scss */
 .mc-container > p {
   font-size: 16px;
   margin-bottom: 20px;
   color: white;
 }
 
-/* line 354, ../../sass/screen.scss */
+/* line 364, ../../sass/screen.scss */
 .mc-container > textarea {
   height: 100px;
   width: 90%;
@@ -508,7 +520,7 @@ canvas {
 /* Buttons from:;
  * http://www.red-team-design.com/wp-content/uploads/2011/09/awesome-css3-buttons.html 
  */
-/* line 368, ../../sass/screen.scss */
+/* line 378, ../../sass/screen.scss */
 button.mc-send {
   display: inline-block;
   white-space: nowrap;
@@ -535,7 +547,7 @@ button.mc-send {
   cursor: pointer;
 }
 
-/* line 394, ../../sass/screen.scss */
+/* line 404, ../../sass/screen.scss */
 button.mc-send:hover {
   background-color: #eee;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#dddddd));
@@ -546,7 +558,7 @@ button.mc-send:hover {
   background-image: linear-gradient(top, #fafafa, #dddddd);
 }
 
-/* line 404, ../../sass/screen.scss */
+/* line 414, ../../sass/screen.scss */
 button.mc-send:active {
   -moz-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3) inset;
   -webkit-box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.3) inset;
@@ -555,13 +567,13 @@ button.mc-send:active {
   top: 1px;
 }
 
-/* line 412, ../../sass/screen.scss */
+/* line 422, ../../sass/screen.scss */
 .button:focus {
   outline: 0;
   background: #fafafa;
 }
 
-/* line 417, ../../sass/screen.scss */
+/* line 427, ../../sass/screen.scss */
 .button:before {
   background: #ccc;
   background: rgba(0, 0, 0, 0.1);
@@ -580,7 +592,7 @@ button.mc-send:active {
   pointer-events: none;
 }
 
-/* line 435, ../../sass/screen.scss */
+/* line 445, ../../sass/screen.scss */
 .mc-wrapper {
   left: -webkit-calc(50% - 15%) !important;
   top: -webkit-calc(50% - 15%) !important;
@@ -588,17 +600,17 @@ button.mc-send:active {
   top: -moz-calc(50% - 15%) !important;
 }
 
-/* line 443, ../../sass/screen.scss */
+/* line 453, ../../sass/screen.scss */
 .mc-wrapper.hidden {
   left: 9999em !important;
 }
 
-/* line 447, ../../sass/screen.scss */
+/* line 457, ../../sass/screen.scss */
 .mc-minimize-button {
   display: none !important;
 }
 
-/* line 451, ../../sass/screen.scss */
+/* line 461, ../../sass/screen.scss */
 label {
   color: #888;
   font-size: 16px;
@@ -610,7 +622,7 @@ label {
 /** Uniform Checkbox (Modified) 
   * Original at https://github.com/pixelmatrix/uniform/blob/master/css/uniform.default.css
   */
-/* line 462, ../../sass/screen.scss */
+/* line 472, ../../sass/screen.scss */
 .checkbox {
   background-image: url(/images/sprite.png) !important;
   background-repeat: no-repeat;
@@ -623,26 +635,26 @@ label {
   margin: 0px;
 }
 
-/* line 474, ../../sass/screen.scss */
+/* line 484, ../../sass/screen.scss */
 .checkbox {
   background-position: 0px -260px;
   height: 19px;
   width: 19px;
 }
 
-/* line 481, ../../sass/screen.scss */
+/* line 491, ../../sass/screen.scss */
 .checkbox:active,
 .checkbox.active {
   background-position: -19px -260px;
 }
 
-/* line 486, ../../sass/screen.scss */
+/* line 496, ../../sass/screen.scss */
 .checkbox.focus,
 .checkbox:hover {
   background-position: -38px -260px;
 }
 
-/* line 493, ../../sass/screen.scss */
+/* line 503, ../../sass/screen.scss */
 .checkbox.focus:active,
 .checkbox:active:hover,
 .checkbox.active:hover,
@@ -650,24 +662,24 @@ label {
   background-position: -57px -260px;
 }
 
-/* line 497, ../../sass/screen.scss */
+/* line 507, ../../sass/screen.scss */
 .checkbox:checked {
   background-position: -76px -260px;
 }
 
-/* line 502, ../../sass/screen.scss */
+/* line 512, ../../sass/screen.scss */
 .checkbox:active:checked,
 .checkbox.active:checked {
   background-position: -95px -260px;
 }
 
-/* line 507, ../../sass/screen.scss */
+/* line 517, ../../sass/screen.scss */
 .checkbox.focus.checked,
 .checkbox.checked:hover {
   background-position: -114px -260px;
 }
 
-/* line 514, ../../sass/screen.scss */
+/* line 524, ../../sass/screen.scss */
 .checkbox.focus.checked:active,
 .checkbox:hover.checked:active,
 .checkbox.active:hover.checked,
@@ -675,28 +687,28 @@ label {
   background-position: -133px -260px;
 }
 
-/* line 520, ../../sass/screen.scss */
+/* line 530, ../../sass/screen.scss */
 .checkbox.disabled,
 .checkbox.disabled:active,
 .checkbox.disabled.active {
   background-position: -152px -260px;
 }
 
-/* line 526, ../../sass/screen.scss */
+/* line 536, ../../sass/screen.scss */
 .checkbox.disabled.checked,
 .checkbox.disabled.checked:active,
 .checkbox.disabled.active.checked {
   background-position: -171px -260px;
 }
 
-/* line 530, ../../sass/screen.scss */
+/* line 540, ../../sass/screen.scss */
 #partners {
   text-align: right;
   padding: 20px;
   border-top: 1px solid #CFCFCF;
 }
 
-/* line 536, ../../sass/screen.scss */
+/* line 546, ../../sass/screen.scss */
 #partners img {
   position: relative;
   height: 80px;

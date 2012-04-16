@@ -274,7 +274,18 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	// File decoding
 	file.addEventListener("change", function (evt) {
 		File.read(evt.target.files[0], 'binarystring', function (result) {
-			Speex.util.play(oggRead(result));
+			var ext = evt.target.files[0].name.split(".")[1];
+
+			if (ext == "ogg") {
+				Speex.util.play(oggRead(result));	
+			} else if (ext == "amr") {
+				var samples = new AMR({
+				   	benchmark: true
+				}).decode(result);
+
+				AMR.util.play(samples);
+			}
+			
 		});
 	}, false);
 

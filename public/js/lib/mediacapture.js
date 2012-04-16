@@ -71,7 +71,7 @@
                     self.flashWrapper = e.ref.parentNode;
                     self.flashWrapper.style.display = "inline-block";
                     if (self.callback) {
-                        setTimeout(function () {
+                        setTimeout(function () {                            
                             self.callback();
                         }, options["timeout"]); // Wait until flash is loaded
                     }
@@ -185,9 +185,13 @@
     CaptureError.CAPTURE_APPLICATION_BUSY = 0;
     CaptureError.CAPTURE_INTERNAL_ERR = 1;
     CaptureError.CAPTURE_INVALID_ARGUMENT = 2;
-    CaptureError.CAPTURE_NO_MEDIA_FILES = 3;
+    CaptureError.CAPTURE_NO_MEDIA_FILES = 3;    
 
     window.microphone = {
+        showText: function (text) {
+           dev.flashElement.show(text); 
+        }, 
+
         capture: function captureAudio() {
             dev.load(function () {
                 dev.flashElement.init();

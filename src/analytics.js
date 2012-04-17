@@ -70,7 +70,7 @@ define('analytics', ['stream'], function (Stream) {
 	}
 
 	Analytics.prototype.send = function () {
-		Stream.trace.setBenchmark(false);
+		Stream.trace && Stream.trace.setBenchmark(false);
 
 		var receive_tm = performance.getMarks('packet_receive')
 		  , send_tm = performance.getMarks('packet_send')
@@ -126,19 +126,20 @@ define('analytics', ['stream'], function (Stream) {
 		delete custom;
 		custom = {};
 
-		Stream.trace.setBenchmark(true);
+		Stream.trace && Stream.trace.setBenchmark(true);
 	}
 
 	Analytics.prototype.start = function () {
-		this.ws = new WebSocket("ws://"+Stream.monrdUrl);
+		if (!this.ws || this.ws.readyState != 1) {
+			this.ws = new WebSocket("ws://"+Stream.monrdUrl);
+			this.setLocation();
+			this.setUA();
+		}
 
-		var self = this;
-		
-		this.setLocation();
-		this.setUA();
+		var self = this;		
 
 		this.measure_timer = setInterval(function () {
-			Stream.trace.setBenchmark();
+			Stream.trace && Stream.trace.setBenchmark();
 		}, this.measure_interval);
 
 		this.collect_timer = setInterval(function () {

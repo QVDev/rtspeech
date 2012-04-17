@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<title>Real-time JS Speech encoding demo</title>
-		<meta name="description" content="rtspeech">
+		<meta name="description" content="Real-time JS Speech encoding demo">
         <meta name="author" content="Joao Martins, Diogo Gomes, Rui L. Aguiar">
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		
@@ -62,7 +62,7 @@
 				<p>
 					<label for="sample">
 						<span>Sample file:</span>
-						<input name="sample" type="file" accept="audio/ogg" />
+						<input name="sample" type="file" />
 					</label>
 				</p>
 
@@ -78,6 +78,22 @@
 					</label>
 				</p>
 
+			</div>
+
+			<div id="loopback-options" class="details">
+				<h3 class="summary">Microphone loopback</h2>
+
+				<label for="codec">
+					<span>Codec:</span>
+					<select id="select-loopback-codec" name="codec" class="selector">
+						<option name="speex">Speex</option>
+						<option name="amrnb" selected>AMR-NB</option>
+						<option name="pcma">PCMA (G711)</option>
+						<option name="pcmu">PCMU (G711)</option>
+					</select>
+				</label>
+
+				<button id="loopback-capture" >Capture</button>
 			</div>
 
 			<div id="session-options" class="details hidden">
@@ -195,7 +211,7 @@
 			</p>
 
 			<p class="text italic">
-			Two media relays are located in Aveiro (Portugal) and France. Depending on your location, additional delay may be causing the interruptions in the sound. If you are interested, you can download the <a href='https://github.com/jpemartins/rtspeech'>source</a> and try.
+			Two media relays are located in Aveiro (Portugal) and France. Depending on your location, additional delay may be causing the interruptions in the sound. If you are interested, you can download the <a href='https://code.ua.pt/projects/rtspeech'>source</a> and try.
 			</p>
 		</section>
 		
@@ -213,7 +229,7 @@
 			<h2>Future work</h1>
 			
 			<p class="text">
-			This <a href="https://github.com/jpemartins/rtspeech">demo</a> is an example of a voice chat-roulette with codecs, audio playback and stream entirely in JavaScript. The only part that isn't JavaScript is the microphone capture.
+			This <a href="https://code.ua.pt/projects/rtspeech">demo</a> is an example of a voice chat-roulette with codecs, audio playback and stream entirely in JavaScript. The only part that isn't JavaScript is the microphone capture.
 			</p>
 
 			<p class="text">
@@ -236,7 +252,7 @@
 			</p>
 
 			<p class="text">
-			We hope to make our contribution with <a href="https://github.com/jpemartins/g711.js">G711</a>, <a href="https://github.com/jpemartins/speex.js">Speex</a> and <a href="https://github.com/jpemartins/amr.js">AMR-NB</a> (both encoders and decoders), which has special importance in telephony and voice-related applications. In the near future we intend to bring more of these audio (voice) codecs. We will update this demo, as we port more codecs. 
+			We hope to make our contribution with <a href="https://code.ua.pt/projects/g711-js">G711</a>, <a href="https://code.ua.pt/projects/speex-js">Speex</a> and <a href="https://code.ua.pt/projects/amr-js">AMR-NB</a> (both encoders and decoders), which has special importance in telephony and voice-related applications. In the near future we intend to bring more of these audio (voice) codecs. We will update this demo, as we port more codecs. 
 			</p>
 
 		</section>
@@ -263,6 +279,6 @@
 		<script src="/dist/bundle.min.js"></script>
 		
 		<!-- App Bootstrap -->
-		<script data-main="/app.js" src="/js/lib/require.js"></script>
+		<script data-main="/dist/app.js" src="/js/lib/require.js"></script>
 	</body>
 </html>

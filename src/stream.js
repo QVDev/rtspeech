@@ -123,8 +123,7 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 
 	Stream.prototype.onbinarymessage = function (buffer) {
 		this.benchmark && performance.mark('packet_receive');
-		//this.benchmark && performance.measure('recv', 'packet_receive');
-		//this.benchmark && performance.measure('rtt', 'packet_send', 'packet_receive');
+
 		this.sink(buffer);
 	}
 
@@ -217,8 +216,6 @@ define('stream', ['platform', 'http', 'file', 'microphone', 'sink', 'codecs'], f
 	Stream.prototype.send = function (data) {
 		this.benchmark && performance.mark('packet_send');
 		this.benchmark && analytics.set('packet_size', data.buffer.byteLength);
-		//this.benchmark && analytics.measure('packet_size', data.buffer.byteLength);
-		//this.benchmark && performance.measure('sink', 'packet_send');
 		
 		this.connection.send(this.btype == "arraybuffer" ? data.buffer : data);
 	}

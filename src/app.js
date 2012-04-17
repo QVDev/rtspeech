@@ -1,4 +1,6 @@
-define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytics'], function (platform, File, HTTP, Stream, Codecs, Sink, Analytics) {
+define('app', ['platform', 'file', 'http', 'microphone', 'stream', 'codecs', 'sink', 'analytics'], 
+
+function (platform, File, HTTP, Microphone, Stream, Codecs, Sink, Analytics) {
 	!window['$'] && ($ = function (selector) {
 		return document.querySelectorAll(selector);
 	});
@@ -16,7 +18,9 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	  , supported = true;
 
 	var loaded = false
-	  , stream, sessionId, isMobile = (platform !== "desktop")
+	  , stream, sessionId
+	  , isMobile = (platform !== "desktop")
+	  
 	  , toggleMC = $$(".toggle-media-capture")
 	  , toggleVis = $$("#toggle-vis")
 	  , featuresList = $$("#support .features")
@@ -28,10 +32,14 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 
 	  , file = $$("#file-decoding input[name='sample']")
 
-	  , codecSelector = $$("#select-codec")
+	  , codecSelector = $$("#select-codec")	  
 	  , codecsAvailable = codecSelector.options
 	  , codecSelected = codecSelector.selectedIndex
 	  , codec = codecSelector.options[codecSelected].getAttribute("name")
+
+	  , loopbackCodecSelector = $$("#select-loopback-codec")
+	  , loopbackCodec = new Codecs[$$("#select-loopback-codec option[selected]").getAttribute("name")]
+	  , captureButton = $$("#loopback-capture")
 
 	  , nav_items = $("nav li a")
 	  , tabs = $("section")
@@ -176,6 +184,47 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 		newSessionBtn.classList.remove("hidden");		
 		$$("#session-options").classList.remove("hidden");		
 	}
+
+	function bindLoopbackStop() {
+		var closeBtn = $$(".mc-wrapper .mc-controls .mc-close-button");
+		closeBtn.addEventListener("click", function (evt) {
+			analytics.stop();
+		}, false);			
+	}
+
+	function onLoopbackCapture (evt) {
+		var bound = false;		
+		analytics.start();
+
+		Microphone.capture(function (samples) {
+			if (!bound) {
+				bindLoopbackStop();
+				bound = true;
+			}
+
+			// Only if the encoder has enough samples
+			if (samples.length == 0) {
+				return;
+			}
+
+			var encoded, decoded; 
+			
+			performance.mark('frames_encode_start');
+			encoded = loopbackCodec.encode(samples, true);
+			performance.mark('frames_encode_end');
+
+			if (!!encoded) {
+				performance.mark('frames_decode_start');
+				decoded = loopbackCodec.decode(encoded);
+				performance.mark('frames_decode_end');
+
+				Sink.write(decoded);
+			}
+
+			performance.measure('frames_encode', 'frames_encode_start', 'frames_encode_end');
+			performance.measure('frames_decode', 'frames_decode_start', 'frames_decode_end');
+		});
+	}
 	
 	function bindMC () {
 		setTimeout(function () {
@@ -305,6 +354,20 @@ define('app', ['platform', 'file', 'http', 'stream', 'codecs', 'sink', 'analytic
 	toggleMC.addEventListener("click", function (evt) {
 		$$(".mc-wrapper").classList.toggle("hidden");
 		toggleMC.classList.toggle("hidden");		
+	}, false);
+
+	// Capture (Microphone Loopback)
+	captureButton.addEventListener("click", function (evt) {		
+		onLoopbackCapture(evt);
+	});
+	
+	// Loopback codec selection
+	loopbackCodecSelector.addEventListener("change", function (evt) {
+		var selected = evt.target.options.selectedIndex
+		  , lpCodec = loopbackCodecSelector.options[selected].getAttribute("name");
+		
+		loopbackCodec = new Codecs[lpCodec]();
+		analytics.set("loopback-codec", lpCodec);
 	}, false);
 
 	// Codec selection

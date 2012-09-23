@@ -13,7 +13,7 @@ function (platform, File, HTTP, Microphone, Stream, Codecs, Sink, Analytics) {
 		Array.prototype.forEach.call(list, fn);
 	}
 
-	var features = ['webaudio', 'audiodata', 'websocketsbinary', 'webworkers', 'filereader', 'performance']
+	var features = ['microphone', 'webaudio', 'audiodata', 'websocketsbinary', 'webworkers', 'filereader', 'performance']
 	  , bonus = ['usertiming']
 	  , supported = true;
 
@@ -153,8 +153,8 @@ function (platform, File, HTTP, Microphone, Stream, Codecs, Sink, Analytics) {
 
 	function featureSupport() {
 		var gen = "", elem, audio = false, f
-		  , audioFeatures = features.slice(0, 2)
-		  , generalFeatures = features.slice(2);
+		  , audioFeatures = features.slice(0, 3)
+		  , generalFeatures = features.slice(3);
 		
 		for (var i=-1; ++i<audioFeatures.length;) {
 			if (Modernizr[audioFeatures[i]]) {
@@ -197,7 +197,7 @@ function (platform, File, HTTP, Microphone, Stream, Codecs, Sink, Analytics) {
 		analytics.start();
 
 		Microphone.capture(function (samples) {
-			if (!bound) {
+			if (!bound && !Modernizr.microphone) {
 				bindLoopbackStop();
 				bound = true;
 			}

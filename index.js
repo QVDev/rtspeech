@@ -5,7 +5,7 @@ var express = require('express')
 	.demand(['port'])
 	.argv;
 
-var app = express.createServer()
+var app = express()
   , rtspeech = require('./lib/relay.js')
   , relay = new rtspeech.Relay(app, {
 		onverify: function (data) {			
@@ -13,7 +13,7 @@ var app = express.createServer()
 		}
 	});
 
-app.use(gzip.gzip());
+//app.use(gzip.gzip());
 app.use(express.static(__dirname+"/public"));
 app.use(express.static(__dirname+"/src"));
 

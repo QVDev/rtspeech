@@ -1,18 +1,7 @@
-define('microphone', function (require) {
-	function capture(fn) {
-		window.__log = function(nignored) {
-			console.warn("too much mic samples ", nignored);
+define('microphone', ['microphone-flash', 'microphone-webaudio'], function(flash, webaudio) {
+		if (Modernizr.microphone) {
+			return webaudio;
 		}
 
-		window.__mediacapture_audiosamples = function(samples) {
-			fn(samples);
-	       	
-		}
-
-		microphone.capture();
-	}
-
-	return {
-	    capture: capture
-	}
+		return flash;
 });
